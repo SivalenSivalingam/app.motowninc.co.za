@@ -49,7 +49,10 @@ public partial class pos_dashboard : Page
 
     protected void Products_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
-
+        if (e.CommandName == "Select")
+        {
+            
+        }
     }
 
     protected void Customers_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -83,5 +86,10 @@ public partial class pos_dashboard : Page
     protected void CustomerSearchPanelPopUpClose_Click(object sender, EventArgs e)
     {
         CustomerSearchModal.Hide();
+    }
+
+    protected void Product_TextChanged(object sender, EventArgs e)
+    {
+
     }
 }

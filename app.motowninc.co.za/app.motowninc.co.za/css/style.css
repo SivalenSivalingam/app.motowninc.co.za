@@ -294,3 +294,9 @@ span.bi.bi-arrow-left, span.bi.bi-arrow-left:active, span.bi.bi-arrow-left:hover
 .shaded-row {
     background: #efefef;
 }
+
+.pos-label
+{
+    font-size:12px;
+    margin-top:10px;
+}
