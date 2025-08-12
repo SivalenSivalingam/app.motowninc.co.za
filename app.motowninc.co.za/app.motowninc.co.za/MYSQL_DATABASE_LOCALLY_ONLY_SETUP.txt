@@ -109,6 +109,17 @@ CREATE TABLE InvoiceItems (
 
 ###########################################################################################################################################
 
+DROP TABLE IF EXISTS Settings;
+CREATE TABLE Settings (
+	SettingId VARCHAR(36) NOT NULL,
+	TermsAndConditions LONGTEXT NULL,
+	PRIMARY KEY (SettingId)
+) ENGINE=INNODB;
+
+INSERT INTO Settings (SettingId) VALUES ('1');
+
+###########################################################################################################################################
+
 DROP TABLE IF EXISTS ExceptionLogs;
 CREATE TABLE ExceptionLogs (
     SQLQuery LONGTEXT NOT NULL,
