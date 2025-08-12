@@ -1,0 +1,69 @@
+﻿body {
+    font-family: "Open Sans", sans-serif;
+    background: #f6f9ff;
+    color: #444444;
+}
+
+#main {
+    margin-top: 60px;
+    padding: 20px 30px;
+    transition: all 0.3s;
+}
+
+@media (max-width: 1199px) {
+    #main {
+        padding: 20px;
+    }
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #000000;
+    border: none;
+    border-radius: 0px;
+}
+
+.btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:visited {
+    border: none;
+    border-radius: 0px;
+}
+
+.card-header
+{
+    padding-bottom:0px;
+}
+
+
+.background {
+    background-color: Black;
+    filter: alpha(opacity=90);
+    opacity: 0.8;
+}
+
+.popup {
+    padding-top: 10px;
+    padding-left: 10px;
+    width: 350px;
+    padding: 10px;
+}
+
+@media (min-width: 0px) and (max-width: 425px) {
+    .popup {
+        width: 100%;
+    }
+}
+
+.close, .close:hover, .close:active {
+    margin-right: -92%;
+    background: #000;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px;
+    z-index: 10;
+    position: absolute;
+    right: 95%;
+    top: -6px;
+}
+
+    .close .bx {
+        padding: 4px;
+    }

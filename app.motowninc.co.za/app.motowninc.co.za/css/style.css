@@ -1,0 +1,284 @@
+﻿body {
+    background: #efefef;
+}
+a {
+    text-decoration:none;
+}
+
+.bg-custom {
+    background: #ffffff;
+    border-bottom: 1px solid rgb(210, 210, 210);
+}
+.navbar-brand, .navbar-brand:hover, .navbar-brand:active,
+.nav-link, .nav-link:hover, .nav-link:active,
+.nav-link .dropdown-toggle, .nav-link .dropdown-toggle:hover, .nav-link .dropdown-toggle:active {
+    color: #000000;
+}
+
+
+.page-heading {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+#datatable input {
+    border:none;
+    width:100%;
+}
+
+
+
+.background {
+    background-color: Black;
+    filter: alpha(opacity=90);
+    opacity: 0.8;
+}
+
+.popup {
+    padding-top: 10px;
+    padding-left: 10px;
+    width: 350px;
+    padding: 10px;
+}
+
+@media (min-width: 0px) and (max-width: 425px) {
+    .popup {
+        width: 100%;
+    }
+}
+
+
+.close, .close:hover, .close:active {
+    margin-right: -92%;
+    background: #000;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px;
+    z-index: 10;
+    position: absolute;
+    right: 95%;
+    top: -6px;
+}
+
+    .close .bx {
+        padding: 4px;
+    }
+
+table .bx, table .bi {
+    color: black;
+}
+
+.dropdown:hover > .dropdown-menu {
+    display: block;
+}
+
+.dropdown > .dropdown-toggle:active {
+    /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+
+table#datatable th {
+    text-align: center;
+    font-weight: bold;
+}
+
+table#datatable td {
+    text-align: center;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:active:focus, .btn-primary:visited {
+    background-color: #000000;
+    border-color: none;
+}
+
+.btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:active:focus, .btn-secondary:visited {
+    background-color: #797979;
+    border-color:none;
+}
+
+.back-link, .back-link:hover, .back-link:active {
+    color: black;
+}
+
+.rotate-45 {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    display: inline-block;
+}
+
+select.form-control {
+    -webkit-appearance: menulist;
+}
+
+.report-link, .report-link:active, .report-link:hover {
+    color: #000;
+}
+
+span.bi.bi-arrow-left, span.bi.bi-arrow-left:active, span.bi.bi-arrow-left:hover {
+    color: #000;
+}
+
+.m-only {
+    display: none;
+}
+
+.d-only {
+    display: inline;
+}
+
+@media (min-width: 0px) and (max-width: 425px) {
+    .m-only {
+        display: inline;
+    }
+
+    .d-only {
+        display: none;
+    }
+
+    .col.mo-style {
+        flex: auto;
+        margin-bottom: 10px;
+    }
+}
+
+.black-links, .black-links:hover, .black-links:active{
+    color: #000000;
+}
+
+.card-header {
+    font-weight:bold;
+}
+
+#datatable th,
+#datatable td {
+    text-align: left !important;
+}
+
+.input-group-text {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.table-pay-run {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    .table-pay-run td, .table-pay-run th {
+        padding: 2px;
+        font-size: 13px;
+        white-space: nowrap !important;
+        text-align: center;
+    }
+
+.table-pay-run th {
+    text-align: center;
+}
+
+    .table-pay-run td input {
+        border: none;
+    }
+
+.pay-run-input
+{
+    width:60px;
+    text-align:center;
+}
+
+.hours {
+    width: 50px !important;
+}
+
+.table-pay-run tr {
+    border-bottom: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+}
+
+.table-pay-run tr td:nth-child(3),
+.table-pay-run tr td:nth-child(5),
+.table-pay-run tr td:nth-child(7),
+.table-pay-run tr td:nth-child(9),
+.table-pay-run tr td:nth-child(11),
+.table-pay-run tr td:nth-child(14) {
+    border-left: 1px solid #000000;
+}
+
+    .table-pay-run tr td:nth-child(4),
+    .table-pay-run tr td:nth-child(6),
+    .table-pay-run tr td:nth-child(8),
+    .table-pay-run tr td:nth-child(10),
+    .table-pay-run tr td:nth-child(12),
+    .table-pay-run tr td:nth-child(13) {
+        border-left: 1px solid #dddddd;
+    }
+
+.CheckBox-Margin-Top-15 input {
+    margin-top: 15px;
+}
+
+.AreasAndCostTable {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    .AreasAndCostTable .TableInputAmount {
+        border: none;
+        width: 100%;
+    }
+
+    .AreasAndCostTable td,
+    .AreasAndCostTable th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+.bx.bx-trash {
+    color: red;
+}
+
+.input-group-text {
+    font-weight:bold;
+}
+
+.pile-diameter-table, .plant-diesel-allowable-table, .table-style {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    .pile-diameter-table td,
+    .pile-diameter-table th,
+    .plant-diesel-allowable-table td,
+    .plant-diesel-allowable-table th,
+    .table-style td,
+    .table-style th {
+        padding: 2px;
+        font-size: 13px;
+        white-space: nowrap !important;
+        border: 1px solid #dddddd;
+    }
+
+.pile-diameter-input {
+    width: 100%;
+    background:none;
+}
+
+.border-0 {
+    width:100%;
+}
+
+.calculated-amount
+{
+    color:gray;
+}
+
+.shaded-row {
+    background: #efefef;
+}

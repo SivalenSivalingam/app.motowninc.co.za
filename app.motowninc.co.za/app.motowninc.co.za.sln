@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.35116.124
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "app.motowninc.co.za", "app.motowninc.co.za\", "{B380A5C1-9A2D-47A2-A284-8BF386809DA7}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_58480"
+		Debug.AspNetCompiler.PhysicalPath = "app.motowninc.co.za\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58480\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_58480"
+		Release.AspNetCompiler.PhysicalPath = "app.motowninc.co.za\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58480\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "58480"
+		SlnRelativePath = "app.motowninc.co.za\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B380A5C1-9A2D-47A2-A284-8BF386809DA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B380A5C1-9A2D-47A2-A284-8BF386809DA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {43452847-973A-4D32-A38F-4EF77FCF8DBE}
+	EndGlobalSection
+EndGlobal

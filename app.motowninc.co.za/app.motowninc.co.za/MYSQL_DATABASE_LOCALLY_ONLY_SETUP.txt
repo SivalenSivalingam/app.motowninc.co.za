@@ -1,0 +1,92 @@
+﻿FTP Accounts
+
+Hostking
+URL		 : app.motowninc.co.za
+FTP      : 156.38.224.13
+Username : Wz20l81Ce6r4L3
+Password : p09c63sV6x07Har25h04iJ6o
+
+###########################################################################################################################################
+
+Xneelo Live MySQL Database
+
+Username : 9smyXG35uEZ8e6
+Password : c9bNpr6hGz19BfSr9AX8
+Name     : motowninc_db
+Server	 : dedi855.jnb3.host-h.net
+
+###########################################################################################################################################
+
+Tables:
+
+Employees
+Customers
+Payslips
+Invoices
+InvoiceItems
+AreaCosts
+Steel
+Diesel
+ExceptionLogs
+
+###########################################################################################################################################
+create database motowninc_db;
+use motowninc_db;
+
+DROP TABLE IF EXISTS Employees;
+CREATE TABLE Employees (
+    EmployeeId VARCHAR(36) NOT NULL,
+
+	FullName VARCHAR(100) NOT NULL,
+	NickName VARCHAR(100) NULL,
+	EmailAddress VARCHAR(100) NOT NULL,
+	Password LONGTEXT NOT NULL,
+	ContactNumber VARCHAR(30) NULL,
+	Address VARCHAR(300) NULL,
+	IDNumber VARCHAR(20) NULL,
+
+	DateEngaged VARCHAR(20) NULL,
+	EmployeeNumber VARCHAR(30) NULL,
+	Department VARCHAR(100) NULL,
+	Position VARCHAR(100) NULL,
+	LineManager VARCHAR(100) NULL,
+	
+	PayDay VARCHAR(20) NULL,
+	Rate DECIMAL(10,2) NOT NULL DEFAULT 0,
+	Hours DECIMAL(10,2) NOT NULL DEFAULT 0,
+
+	EmergencyContactFullName VARCHAR(100) NULL,
+	EmergencyContactRelationship VARCHAR(30) NULL,
+	EmergencyContactContactNumber VARCHAR(30) NULL,
+
+	BankAccountBankName VARCHAR(30) NULL,
+	BankAccountBranchCode VARCHAR(10) NULL,
+	BankAccountAccountName VARCHAR(20) NULL,
+	BankAccountAccountNumber VARCHAR(20) NULL,
+	BankAccountAccountType VARCHAR(20) NULL,
+
+	PlatformAccess BIT NOT NULL DEFAULT 0,
+	Active BIT NOT NULL DEFAULT 1,
+	AccountType VARCHAR(100) NOT NULL,
+	Created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (EmployeeId)
+) ENGINE=INNODB;
+
+INSERT INTO Employees (EmployeeId, FullName, EmailAddress, Password, AccountType)
+VALUES ('185ab874-138a-42e8-9e4c-5c42d47f360c', 'Admin', 'admin@syndicatepiling.co.za', SHA2('6f9oc1Tt4vUQlRJ5TL4S',512) , 'Admin');
+
+ALTER TABLE Employees ADD COLUMN LOARate DECIMAL(10,2) NOT NULL DEFAULT 0 AFTER Hours;
+
+###########################################################################################################################################
+
+
+DROP TABLE IF EXISTS ExceptionLogs;
+CREATE TABLE ExceptionLogs (
+    SQLQuery LONGTEXT NOT NULL,
+	SQLParameters LONGTEXT NULL,
+	Message LONGTEXT NOT NULL,
+	StackTrace LONGTEXT NOT NULL,
+	Created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=INNODB;
+
+###########################################################################################################################################
