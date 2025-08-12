@@ -42,7 +42,7 @@
                                                 <td>
                                                     <%#Eval("AccountType")%></td>
 
-                                                 <td style="text-align: end">
+                                                 <td style="text-align: end !important">
                                                     <asp:LinkButton runat="server" ID="Edit" CommandName="Edit" CommandArgument='<%#Eval("CustomerId")%>' class="dropdown-item"><i class="bx bx-edit"></i></asp:LinkButton></li>
                                                 </td>
                                             </tr>

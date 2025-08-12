@@ -20,7 +20,7 @@ public partial class admin_employees_create : Page
         AccountType.Items.Clear();
         AccountType.Items.Insert(0, new ListItem("Please Select A Option", "Please Select A Option"));
 
-        var sortedList = new DropdownOptions().CustomerAccountTypes.OrderBy(x => x).ToList();
+        var sortedList = new DropdownOptions().EmployeeAccountTypes.OrderBy(x => x).ToList();
 
         for (int index = 1; index <= sortedList.Count; index++)
         {

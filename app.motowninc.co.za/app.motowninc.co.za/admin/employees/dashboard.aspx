@@ -28,6 +28,7 @@
                                                         <th>Email Address</th>
                                                         <th>Contact Number</th>
                                                         <th>Active</th>
+                                                        <th>Account Type</th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
@@ -47,7 +48,10 @@
                                                 <td>
                                                     <%#Active(Eval("Active").ToString())%>
                                                 </td>
-                                                <td style="text-align: end">
+                                                  <td>
+                                                    <%#Eval("AccountType")%>
+                                                </td>
+                                                <td style="text-align: end !important">
                                                     <asp:LinkButton runat="server" ID="Edit" CommandName="Edit" CommandArgument='<%#Eval("EmployeeId")%>' class="dropdown-item"><i class="bx bx-edit"></i></asp:LinkButton></li>
                                                 </td>
                                             </tr>
