@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/admin/admin.master" AutoEventWireup="true" CodeFile="dashboard.aspx.cs" Inherits="admin_products_dashboard" %>
 
-<asp:Content ID="Body" ContentPlaceHolderID="Body" Runat="Server">
+<asp:Content ID="Body" ContentPlaceHolderID="Body" runat="Server">
     <main id="main" class="main">
         <section class="section">
             <div class="row">
@@ -24,13 +24,15 @@
                                             <table id="datatable" class="table table-striped table-borderless">
                                                 <thead>
                                                     <tr>
-                                                        <th>Employee Number</th>
-                                                        <th>Full Name</th>
-                                                        <th>Contact Number</th>
-                                                        <th>Department</th>
-                                                        <th>Position</th>
-                                                        <th>Active</th>
-                                                        <th></th>
+                                                        <th>Code</th>
+                                                        <th>Tye</th>
+                                                        <th>Name</th>
+                                                        <th>Description</th>
+                                                        <th>Quantity</th>
+                                                        <th>Price</th>
+                                                        <th>Discount</th>
+                                                        <th>Barcode</th>
+                                                        <th>Edit</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -38,25 +40,31 @@
                                         <ItemTemplate>
                                             <tr>
                                                 <td>
-                                                    <%#Eval("EmployeeNumber")%>
+                                                    <%#Eval("Code")%>
                                                 </td>
                                                 <td>
-                                                    <%#GetName(Eval("FullName").ToString(), Eval("NickName").ToString())%>
+                                                    <%#Eval("Type")%>
                                                 </td>
                                                 <td>
-                                                    <%#Eval("ContactNumber")%>
+                                                    <%#Eval("Name")%>
                                                 </td>
                                                 <td>
-                                                    <%#Eval("Department")%>
+                                                    <%#Eval("Description")%>
                                                 </td>
                                                 <td>
-                                                    <%#Eval("Position")%>
+                                                    <%#Eval("Quantity")%>
                                                 </td>
                                                 <td>
-                                                    <%#Active(Eval("Active").ToString())%>
+                                                    <%#Eval("Price")%>
+                                                </td>
+                                                <td>
+                                                    <%#Eval("Discount")%>
+                                                </td>
+                                                <td>
+                                                    <%#Eval("Barcode")%>
                                                 </td>
                                                 <td style="text-align: end">
-                                                    <asp:LinkButton runat="server" ID="Edit" CommandName="Edit" CommandArgument='<%#Eval("EmployeeId")%>' class="dropdown-item">Edit</asp:LinkButton></li>
+                                                    <asp:LinkButton runat="server" ID="Edit" CommandName="Edit" CommandArgument='<%#Eval("ProductId")%>' class="dropdown-item"><i class="bx bx-edit"></i></asp:LinkButton></li>
                                                 </td>
                                             </tr>
                                         </ItemTemplate>

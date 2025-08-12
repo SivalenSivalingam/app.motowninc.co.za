@@ -9,17 +9,23 @@ public partial class admin_products_create : Page
     {
         try
         {
-            var customerId = Guid.NewGuid().ToString();
+            var productId = Guid.NewGuid().ToString();
             var result = new DatabaseTable().Insert("Products",
                 new List<MySqlParameter> {
-                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@CustomerId", Value = customerId},
-                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@EmployeeId", Value = Session["SessionEmployeeId"].ToString()},
-                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@FullName", Value = Name.Text}
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@ProductId", Value = productId},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Code", Value = Code.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Type", Value = Type.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Name", Value = Name.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.LongText, ParameterName="@Description", Value = Description.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.Int32, ParameterName="@Quantity", Value = Quantity.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.Decimal, ParameterName="@Price", Value = Price.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.Decimal, ParameterName="@Discount", Value = Discount.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Barcode", Value = Barcode.Text}
                 });
 
             if (result.Item1)
             {
-                Response.Redirect("/admin/customers/edit?id=" + customerId);
+                Response.Redirect("/admin/products/edit?id=" + productId);
             }
             else
             {
