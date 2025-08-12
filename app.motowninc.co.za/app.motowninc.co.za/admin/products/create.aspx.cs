@@ -37,7 +37,7 @@ public partial class admin_products_create : Page
                 new List<MySqlParameter> {
                     new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@ProductId", Value = productId},
                     new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Code", Value = Code.Text},
-                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Type", Value = Type.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Type", Value = ProductType.SelectedItem.Value},
                     new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Name", Value = Name.Text},
                     new MySqlParameter() { MySqlDbType = MySqlDbType.LongText, ParameterName="@Description", Value = Description.Text},
                     new MySqlParameter() { MySqlDbType = MySqlDbType.Int32, ParameterName="@Quantity", Value = Quantity.Text},

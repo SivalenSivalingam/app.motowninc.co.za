@@ -41,7 +41,7 @@ public partial class admin_products_edit : Page
         DataRow product = dataTable.Rows[0];
 
         Code.Text = product["Code"].ToString();
-        Type.Text = product["Type"].ToString();
+        ProductType.SelectedValue = product["Type"].ToString();
         Name.Text = product["Name"].ToString();
         Description.Text = product["Description"].ToString();
         Quantity.Text = product["Quantity"].ToString();
@@ -55,7 +55,7 @@ public partial class admin_products_edit : Page
         var result = new DatabaseTable().Update("Products", new List<MySqlParameter> {
                     new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@ProductId", Value = Request.QueryString["id"]},
                     new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Code", Value = Code.Text},
-                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Type", Value = Type.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Type", Value = ProductType.SelectedItem.Value},
                     new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Name", Value = Name.Text},
                     new MySqlParameter() { MySqlDbType = MySqlDbType.LongText, ParameterName="@Description", Value = Description.Text},
                     new MySqlParameter() { MySqlDbType = MySqlDbType.Int32, ParameterName="@Quantity", Value = Quantity.Text},
