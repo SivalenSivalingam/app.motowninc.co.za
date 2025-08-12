@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="pos-label">Payment Type</label>
-                                    <asp:DropDownList runat="server" ID="PaymentType" CssClass="form-control"></asp:DropDownList>
+                                    <asp:DropDownList runat="server" ID="PaymentType" CssClass="form-control" onchange="toggleCashRows(this)"></asp:DropDownList>
                                 </div>
                             </div>
 
@@ -113,7 +113,7 @@
                                     <h5>R<asp:Label runat="server" ID="Total" CssClass="totalAmount"></asp:Label></h5>
                                 </div>
                             </div>
-                             <div class="row CashReceived">
+                            <div class="row Cash">
                                 <div class="col">
                                     <h5>Cash Received</h5>
                                 </div>
@@ -121,13 +121,12 @@
                                     <asp:TextBox runat="server" ID="CashReceived" CssClass="form-control"></asp:TextBox>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row Cash">
                                 <div class="col">
                                     <h5>Cash Returned</h5>
                                 </div>
                                 <div class="col text-end">
-                                    <h5>
-                                        R<asp:Label runat="server" ID="Change" CssClass="CashReturned"></asp:Label></h5>
+                                    <h5>R<asp:Label runat="server" ID="Change" CssClass="CashReturned"></asp:Label></h5>
                                 </div>
                             </div>
                         </div>
@@ -253,7 +252,7 @@
                                                     <%#Eval("Description")%>
                                                 </td>
                                                 <td>
-                                                   <asp:TextBox runat="server" ID="Quantity" Text='<%#Eval("Quantity")%>'></asp:TextBox>
+                                                    <asp:TextBox runat="server" ID="Quantity" Text='<%#Eval("Quantity")%>'></asp:TextBox>
                                                 </td>
                                                 <td>
                                                     <%#Eval("Price")%>
@@ -344,6 +343,20 @@
                 stateSave: true,
                 order: false
             });
+        });
+    </script>
+    <script>
+        function toggleCashRows(dropdown) {
+            var isCash = dropdown.value === "Cash";
+            document.querySelectorAll('.Cash').forEach(function (row) {
+                row.style.display = isCash ? 'flex' : 'none';
+            });
+        }
+
+        // Run on page load to set initial state
+        document.addEventListener("DOMContentLoaded", function () {
+            var dropdown = document.getElementById("<%= PaymentType.ClientID %>");
+            toggleCashRows(dropdown);
         });
     </script>
 </asp:Content>
