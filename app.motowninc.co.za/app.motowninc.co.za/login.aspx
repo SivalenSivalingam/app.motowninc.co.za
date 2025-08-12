@@ -38,7 +38,7 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <label class="form-label">Password</label>
-                                                <asp:TextBox runat="server" ID="Password" TextMode="Password" CssClass="form-control" AutoComplete="off"></asp:TextBox>
+                                                <asp:TextBox runat="server" ID="Password" TextMode="Password" CssClass="form-control" autocomplete="new-password"></asp:TextBox>
                                             </div>
                                         </div>
                                         <br />

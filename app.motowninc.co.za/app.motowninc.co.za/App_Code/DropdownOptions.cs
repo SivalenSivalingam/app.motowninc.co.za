@@ -13,12 +13,22 @@ public class DropdownOptions
     public List<string> CustomerAccountTypes = new List<string>
         {
             "Cash",
-            "30 Day Account",
+            "Account",
+            "Finance",
         };
 
     public List<string> EmployeeAccountTypes = new List<string>
         {
             "Admin",
             "POS",
+        };
+
+    public List<string> PaymentTypes = new List<string>
+        {
+            "Cash",
+            "Card",
+            "Account",
+            "Finance",
+            "Split",
         };
 }

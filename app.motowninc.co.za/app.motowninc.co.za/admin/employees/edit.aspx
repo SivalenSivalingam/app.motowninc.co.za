@@ -29,7 +29,7 @@
                              <div class="row mb-3">
                                 <label class="col-md-4 col-lg-3 col-form-label">Password</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <asp:TextBox runat="server" ID="Password" class="form-control" TextMode="Password"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="Password" class="form-control" TextMode="Password" autocomplete="new-password"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="row mb-3">
