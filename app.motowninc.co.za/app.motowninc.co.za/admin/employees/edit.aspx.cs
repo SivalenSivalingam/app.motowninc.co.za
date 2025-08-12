@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.UI;
-
+using System.Web.UI.WebControls;
 
 public partial class admin_employees_edit : Page
 {
@@ -13,7 +14,21 @@ public partial class admin_employees_edit : Page
     {
         if (!Page.IsPostBack)
         {
+            LoadDropdownOptions();
             LoadEmployee();
+        }
+    }
+
+    private void LoadDropdownOptions()
+    {
+        AccountType.Items.Clear();
+        AccountType.Items.Insert(0, new ListItem("Please Select A Option", "Please Select A Option"));
+
+        var sortedList = new DropdownOptions().EmployeeAccountTypes.OrderBy(x => x).ToList();
+
+        for (int index = 1; index <= sortedList.Count; index++)
+        {
+            AccountType.Items.Insert(index, new ListItem(sortedList[index - 1], sortedList[index - 1]));
         }
     }
 
@@ -29,36 +44,12 @@ public partial class admin_employees_edit : Page
         DataRow employee = dataTale.Rows[0];
 
         FullName.Text = employee["FullName"].ToString();
-        NickName.Text = employee["NickName"].ToString();
         EmailAddress.Text = employee["EmailAddress"].ToString();
+        CurrentEmailAddress.Value = employee["EmailAddress"].ToString();
         AccountType.SelectedValue = employee["AccountType"].ToString();
-
         ContactNumber.Text = employee["ContactNumber"].ToString();
-        Address.Text = employee["Address"].ToString();
-        IDNumber.Text = employee["IDNumber"].ToString();
         PlatformAccess.Checked = employee["PlatformAccess"].ToString() == "1";
         Active.Checked = employee["Active"].ToString() == "1";
-
-        DateEngaged.Text = employee["DateEngaged"].ToString();
-        EmployeeNumber.Text = employee["EmployeeNumber"].ToString();
-        Department.Text = employee["Department"].ToString();
-        Position.Text = employee["Position"].ToString();
-        LineManager.Text = employee["LineManager"].ToString();
-        PayDay.Text = employee["PayDay"].ToString();
-        IDNumber.Text = employee["IDNumber"].ToString();
-        Rate.Text = employee["Rate"].ToString();
-        Hours.Text = employee["Hours"].ToString();
-        LOARate.Text = employee["LOARate"].ToString();
-
-        EmergencyContactFullName.Text = employee["EmergencyContactFullName"].ToString();
-        EmergencyContactRelationship.Text = employee["EmergencyContactRelationship"].ToString();
-        EmergencyContactContactNumber.Text = employee["EmergencyContactContactNumber"].ToString();
-
-        BankAccountBankName.Text = employee["BankAccountBankName"].ToString();
-        BankAccountBranchCode.Text = employee["BankAccountBranchCode"].ToString();
-        BankAccountAccountName.Text = employee["BankAccountAccountName"].ToString();
-        BankAccountAccountNumber.Text = employee["BankAccountAccountNumber"].ToString();
-        BankAccountAccountType.Text = employee["BankAccountAccountType"].ToString();
     }
 
     protected void Cancel_Click(object sender, EventArgs e)
@@ -80,53 +71,30 @@ public partial class admin_employees_edit : Page
             return;
         }
 
-        //if (!new Session().IsEmailUnique(EmailAddress.Text.Trim().ToLower()))
-        //{
-        //    ((admin_admin)Page.Master).Alert("Email address is not unique. Please use a different email.");
-        //    return;
-        //}
+        if (CurrentEmailAddress.Value.Trim().ToLower() != EmailAddress.Text.Trim().ToLower())
+        {
+            if (!new Session().IsEmailUnique(EmailAddress.Text.Trim().ToLower()))
+            {
+                ((admin_admin)Page.Master).Alert("Email address is not unique. Please use a different email.");
+                return;
+            }
+        }
 
         var result = new DatabaseTable().Update("Employees", new List<MySqlParameter>{
                         new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@EmployeeId", Value = Guid.Parse(Request.QueryString["id"].ToString())},
-                        
                         new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@FullName", Value = FullName.Text},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@NickName", Value = NickName.Text},
-                        // new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@EmailAddress", Value = EmailAddress.Text.Trim().ToLower()},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@AccountType", Value = AccountType.SelectedItem.Value},
                         new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@ContactNumber", Value = ContactNumber.Text},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Address", Value = Address.Text},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@IDNumber", Value = IDNumber.Text},
-
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@DateEngaged", Value = DateEngaged.Text},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@EmployeeNumber", Value = EmployeeNumber.Text},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Department", Value = Department.Text},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Position", Value = Position.Text},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@LineManager", Value = LineManager.Text},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@PayDay", Value = PayDay.Text},
-
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Rate", Value = GetDecimal(Rate.Text)},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Hours", Value = GetDecimal(Hours.Text)},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@LOARate", Value = GetDecimal(LOARate.Text)},
-
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@EmergencyContactFullName", Value = EmergencyContactFullName.Text},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@EmergencyContactRelationship", Value = EmergencyContactRelationship.Text},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@EmergencyContactContactNumber", Value = EmergencyContactContactNumber.Text},
-
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@BankAccountBankName", Value = BankAccountBankName.Text},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@BankAccountBranchCode", Value = BankAccountBranchCode.Text},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@BankAccountAccountName", Value = BankAccountAccountName.Text},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@BankAccountAccountNumber", Value = BankAccountAccountNumber.Text},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@BankAccountAccountType", Value = BankAccountAccountType.Text},
-
+                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@EmailAddress", Value = EmailAddress.Text.Trim().ToLower()},
+                        new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@AccountType", Value = AccountType.SelectedItem.Value},
                         new MySqlParameter() { MySqlDbType = MySqlDbType.Bit, ParameterName="@PlatformAccess", Value = PlatformAccess.Checked},
                         new MySqlParameter() { MySqlDbType = MySqlDbType.Bit, ParameterName="@Active", Value = Active.Checked},
-                        
+
         });
 
-        //if (!string.IsNullOrEmpty(Password.Text))
-        //{
-        //    new DatabaseTable().UpdatePassword("Employees", "EmployeeId", Guid.Parse(Request.QueryString["id"].ToString()).ToString(), Password.Text);
-        //}
+        if (!string.IsNullOrEmpty(Password.Text))
+        {
+            new DatabaseTable().UpdatePassword("Employees", "EmployeeId", Guid.Parse(Request.QueryString["id"].ToString()).ToString(), Password.Text);
+        }
 
         if (result.Item1)
         {

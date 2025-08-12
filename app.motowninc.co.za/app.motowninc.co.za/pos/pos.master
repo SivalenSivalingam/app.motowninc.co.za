@@ -32,12 +32,6 @@
                             <a class="nav-link" href="/pos/dashboard"><i class="bx bx-home"></i>&nbsp;POS</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/pos/customers/dashboard"><i class="bx bx-user"></i>&nbsp;Customers</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link" href="/pos/products/dashboard"><i class="bx bx-user"></i>&nbsp;Products</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="/pos/invoices/dashboard"><i class="bx bx-file"></i>&nbsp;Invoices</a>
                         </li>
                         <li class="nav-item">

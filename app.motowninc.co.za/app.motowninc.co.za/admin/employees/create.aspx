@@ -15,13 +15,40 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
+                                <label class="col-md-4 col-lg-3 col-form-label">Contact Number</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <asp:TextBox runat="server" ID="ContactNumber" class="form-control"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-md-4 col-lg-3 col-form-label">EmailAddress</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <asp:TextBox runat="server" ID="EmailAddress" class="form-control"></asp:TextBox>
+                                </div>
+                            </div>
+                             <div class="row mb-3">
+                                <label class="col-md-4 col-lg-3 col-form-label">Password</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <asp:TextBox runat="server" ID="Password" class="form-control" TextMode="Password" autocomplete="new-password"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
                                 <label class="col-md-4 col-lg-3 col-form-label">Account Type</label>
                                 <div class="col-md-8 col-lg-9">
                                     <asp:DropDownList runat="server" ID="AccountType" class="form-control">
-                                        <asp:ListItem Value="0">Please Select Account Type</asp:ListItem>
-                                        <asp:ListItem Value="Employee">Employee</asp:ListItem>
-                                        <asp:ListItem Value="Admin">Admin</asp:ListItem>
                                     </asp:DropDownList>
+                                </div>
+                            </div>
+                             <div class="row mb-3">
+                                <label class="col-md-4 col-lg-3 col-form-label">Platform Access</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <asp:CheckBox runat="server" ID="PlatformAccess" />
+                                </div>
+                            </div>
+                             <div class="row mb-3">
+                                <label class="col-md-4 col-lg-3 col-form-label">Active</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <asp:CheckBox runat="server" ID="Active" />
                                 </div>
                             </div>
                         </div>

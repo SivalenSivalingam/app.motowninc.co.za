@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/admin/admin.master" AutoEventWireup="true" CodeFile="dashboard.aspx.cs" Inherits="admin_employees_dashboard" %>
 
-<asp:Content ID="Body" ContentPlaceHolderID="Body" Runat="Server">
+<asp:Content ID="Body" ContentPlaceHolderID="Body" runat="Server">
     <main id="main" class="main">
         <section class="section">
             <div class="row">
@@ -24,11 +24,9 @@
                                             <table id="datatable" class="table table-striped table-borderless">
                                                 <thead>
                                                     <tr>
-                                                        <th>Employee Number</th>
                                                         <th>Full Name</th>
+                                                        <th>Email Address</th>
                                                         <th>Contact Number</th>
-                                                        <th>Department</th>
-                                                        <th>Position</th>
                                                         <th>Active</th>
                                                         <th></th>
                                                     </tr>
@@ -38,34 +36,19 @@
                                         <ItemTemplate>
                                             <tr>
                                                 <td>
-                                                    <%#Eval("EmployeeNumber")%>
+                                                    <%#Eval("FullName")%>
                                                 </td>
                                                 <td>
-                                                    <%#GetName(Eval("FullName").ToString(), Eval("NickName").ToString())%>
+                                                    <%#Eval("EmailAddress")%>
                                                 </td>
                                                 <td>
                                                     <%#Eval("ContactNumber")%>
                                                 </td>
                                                 <td>
-                                                    <%#Eval("Department")%>
-                                                </td>
-                                                <td>
-                                                    <%#Eval("Position")%>
-                                                </td>
-                                                <td>
                                                     <%#Active(Eval("Active").ToString())%>
                                                 </td>
                                                 <td style="text-align: end">
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            <li>
-                                                                <asp:LinkButton runat="server" ID="Edit" CommandName="Edit" CommandArgument='<%#Eval("EmployeeId")%>' class="dropdown-item">Edit</asp:LinkButton></li>
-                                                            <li class="dropdown-divider"></li>
-                                                            <li>
-                                                                <asp:LinkButton runat="server" ID="Delete" CommandName="Delete" CommandArgument='<%#Eval("EmployeeId")%>' OnClientClick="return confirm('Are you sure you want to delete, this information will be permanently lost?')" class="dropdown-item red-text">Delete</asp:LinkButton></li>
-                                                        </ul>
-                                                    </div>
+                                                    <asp:LinkButton runat="server" ID="Edit" CommandName="Edit" CommandArgument='<%#Eval("EmployeeId")%>' class="dropdown-item"><i class="bx bx-edit"></i></asp:LinkButton></li>
                                                 </td>
                                             </tr>
                                         </ItemTemplate>

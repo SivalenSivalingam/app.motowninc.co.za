@@ -15,7 +15,7 @@ public partial class admin_employees_dashboard : Page
 
     private void LoadEmployees()
     {
-        Employees.DataSource = new Employees().GetAllEmployees();
+        Employees.DataSource = new DatabaseTable().Select("SELECT * FROM Employees ORDER BY Fullname;");
         Employees.DataBind();
     }
 
@@ -45,12 +45,5 @@ public partial class admin_employees_dashboard : Page
     public string Active(string active)
     {
         return active == "1" ? "<i class='bx bx-check-circle' style='color: #3ee23e;'></i>" : "<i class='bx bx-x-circle' style='color: red;'></i>";
-    }
-
-    public string GetName(string fullName, string nickName)
-    {
-        if (string.IsNullOrEmpty(nickName))
-            return fullName;
-        return fullName + " (" + nickName + ")";
     }
 }

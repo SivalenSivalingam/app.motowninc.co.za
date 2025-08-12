@@ -15,4 +15,10 @@ public class DropdownOptions
             "Cash",
             "30 Day Account",
         };
+
+    public List<string> EmployeeAccountTypes = new List<string>
+        {
+            "Admin",
+            "POS",
+        };
 }
