@@ -11,7 +11,8 @@
                             <div class="row mb-3">
                                 <label class="col-md-4 col-lg-3 col-form-label">Type</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <asp:TextBox runat="server" ID="Type" class="form-control"></asp:TextBox>
+                                     <asp:DropDownList runat="server" ID="ProductType" class="form-control">
+                                    </asp:DropDownList>
                                 </div>
                             </div>
                             <div class="row mb-3">

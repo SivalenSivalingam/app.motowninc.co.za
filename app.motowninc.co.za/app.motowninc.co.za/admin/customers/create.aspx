@@ -6,18 +6,31 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="card">
-                        <h6 class="card-header"><a href="/admin/customers/dashboard" class="black-links"><span class="bx bx-arrow-back"></span></a>&nbsp;Customer Information</h6>
+                        <h6 class="card-header"><a href="/admin/customers/dashboard" class="black-links"><span class="bx bx-arrow-back"></span></a>&nbsp;Create Customer</h6>
                         <div class="card-body">
                             <div class="row mb-3">
-                                <label class="col-md-4 col-lg-3 col-form-label">Company Name</label>
+                                <label class="col-md-4 col-lg-3 col-form-label">Name</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <asp:TextBox runat="server" ID="CompanyName" class="form-control"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="Name" class="form-control"></asp:TextBox>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <label class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                             <div class="row mb-3">
+                                <label class="col-md-4 col-lg-3 col-form-label">Contact Number</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <asp:TextBox runat="server" ID="FullName" class="form-control"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="ContactNumber" class="form-control"></asp:TextBox>
+                                </div>
+                            </div>
+                             <div class="row mb-3">
+                                <label class="col-md-4 col-lg-3 col-form-label">Email Address</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <asp:TextBox runat="server" ID="EmailAddress" class="form-control"></asp:TextBox>
+                                </div>
+                            </div>
+                             <div class="row mb-3">
+                                <label class="col-md-4 col-lg-3 col-form-label">Account Type</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <asp:DropDownList runat="server" ID="AccountType" class="form-control">
+                                    </asp:DropDownList>
                                 </div>
                             </div>
                         </div>

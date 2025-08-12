@@ -24,44 +24,26 @@
                                             <table id="datatable" class="table table-striped table-borderless">
                                                 <thead>
                                                     <tr>
-                                                        <th>Employee</th>
-                                                        <th>Company Name</th>
-                                                        <th>Full Name</th>
+                                                        <th>Name</th>
+                                                        <th>Contact Number</th>
                                                         <th>Email Address</th>
-                                                        <th>Mobile Number</th>
-                                                        <th>Landline Number</th>
-                                                        <th></th>
+                                                        <th>Account Type</th>
+                                                        <th>Edit</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                         </HeaderTemplate>
                                         <ItemTemplate>
                                             <tr>
-                                                <td><%#Eval("Employee")%></td>
-                                                <td><%#Eval("CompanyName")%></td>
-                                                <td>
-                                                    <%#Eval("FullName")%></td>
+                                                <td><%#Eval("Name")%></td>
+                                                <td><%#Eval("ContactNumber")%></td>
                                                 <td>
                                                     <%#Eval("EmailAddress")%></td>
+                                                <td>
+                                                    <%#Eval("AccountType")%></td>
 
-                                                <td>
-                                                    <%#Eval("MobileNumber")%></td>
-                                                <td>
-                                                    <%#Eval("LandlineNumber")%></td>
-                                                <td style="text-align: end;">
-                                                    <div class="filter">
-                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical"></i></a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                            <li>
-                                                                <asp:LinkButton runat="server" ID="Edit" CommandName="Edit" CommandArgument='<%#Eval("CustomerId")%>' class="dropdown-item">Edit</asp:LinkButton></li>
-                                                            <li class="dropdown-divider"></li>
-                                                            <li>
-                                                                <asp:LinkButton runat="server" ID="Notes" CommandName="Notes" CommandArgument='<%#Eval("CustomerId")%>' class="dropdown-item">Notes</asp:LinkButton></li>
-                                                            <li class="dropdown-divider"></li>
-                                                            <li>
-                                                                <asp:LinkButton runat="server" ID="Delete" CommandName="Delete" CommandArgument='<%#Eval("CustomerId")%>' OnClientClick="return confirm('Are you sure you want to delete, this information will be permanently lost?')" class="dropdown-item red-text">Delete</asp:LinkButton></li>
-                                                        </ul>
-                                                    </div>
+                                                 <td style="text-align: end">
+                                                    <asp:LinkButton runat="server" ID="Edit" CommandName="Edit" CommandArgument='<%#Eval("CustomerId")%>' class="dropdown-item"><i class="bx bx-edit"></i></asp:LinkButton></li>
                                                 </td>
                                             </tr>
                                         </ItemTemplate>

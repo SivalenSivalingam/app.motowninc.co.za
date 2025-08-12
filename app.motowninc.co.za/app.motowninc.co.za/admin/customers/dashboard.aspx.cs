@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -18,8 +14,7 @@ public partial class admin_customers_dashboard : Page
 
     private void LoadCustomers()
     {
-        DataTable dataTable = new DatabaseTable().Select("SELECT Employees.FullName AS Employee, Customers.* FROM Customers LEFT OUTER JOIN Employees ON Employees.EmployeeId = Customers.EmployeeId ORDER BY CompanyName, FullName;");
-        Customers.DataSource = dataTable;
+        Customers.DataSource = new DatabaseTable().Select("SELECT * FROM Customers ORDER BY Name");
         Customers.DataBind();
     }
 
