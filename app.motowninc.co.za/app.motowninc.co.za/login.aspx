@@ -50,7 +50,7 @@
                                 <div class="row">
                                     <div class="col-12 text-center">
                                         <br />
-                                        <sup>&copy; <%=DateTime.Now.Year.ToString() %> Syndicate Piling (Pty) Ltd. All Rights Reserved. Hosted by Webox.</sup>
+                                        <sup>&copy; <%=DateTime.Now.Year.ToString() %> Motown Inc. All Rights Reserved. Hosted by Webox.</sup>
                                     </div>
                                 </div>
                             </div>

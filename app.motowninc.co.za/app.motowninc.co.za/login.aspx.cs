@@ -56,8 +56,8 @@ public partial class login : System.Web.UI.Page
                 case "Admin":
                     Response.Redirect("/admin/dashboard");
                     break;
-                case "Till":
-                    Response.Redirect("/admin/dashboard");
+                case "POS":
+                    Response.Redirect("/pos/dashboard");
                     break;
             }
         }

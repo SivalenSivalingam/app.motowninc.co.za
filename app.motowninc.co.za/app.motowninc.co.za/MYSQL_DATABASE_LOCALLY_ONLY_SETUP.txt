@@ -17,54 +17,16 @@ Server	 : dedi855.jnb3.host-h.net
 
 ###########################################################################################################################################
 
-Tables:
-
-Employees
-Customers
-Payslips
-Invoices
-InvoiceItems
-AreaCosts
-Steel
-Diesel
-ExceptionLogs
-
-###########################################################################################################################################
 create database motowninc_db;
 use motowninc_db;
 
 DROP TABLE IF EXISTS Employees;
 CREATE TABLE Employees (
     EmployeeId VARCHAR(36) NOT NULL,
-
 	FullName VARCHAR(100) NOT NULL,
-	NickName VARCHAR(100) NULL,
 	EmailAddress VARCHAR(100) NOT NULL,
 	Password LONGTEXT NOT NULL,
 	ContactNumber VARCHAR(30) NULL,
-	Address VARCHAR(300) NULL,
-	IDNumber VARCHAR(20) NULL,
-
-	DateEngaged VARCHAR(20) NULL,
-	EmployeeNumber VARCHAR(30) NULL,
-	Department VARCHAR(100) NULL,
-	Position VARCHAR(100) NULL,
-	LineManager VARCHAR(100) NULL,
-	
-	PayDay VARCHAR(20) NULL,
-	Rate DECIMAL(10,2) NOT NULL DEFAULT 0,
-	Hours DECIMAL(10,2) NOT NULL DEFAULT 0,
-
-	EmergencyContactFullName VARCHAR(100) NULL,
-	EmergencyContactRelationship VARCHAR(30) NULL,
-	EmergencyContactContactNumber VARCHAR(30) NULL,
-
-	BankAccountBankName VARCHAR(30) NULL,
-	BankAccountBranchCode VARCHAR(10) NULL,
-	BankAccountAccountName VARCHAR(20) NULL,
-	BankAccountAccountNumber VARCHAR(20) NULL,
-	BankAccountAccountType VARCHAR(20) NULL,
-
 	PlatformAccess BIT NOT NULL DEFAULT 0,
 	Active BIT NOT NULL DEFAULT 1,
 	AccountType VARCHAR(100) NOT NULL,
@@ -73,12 +35,79 @@ CREATE TABLE Employees (
 ) ENGINE=INNODB;
 
 INSERT INTO Employees (EmployeeId, FullName, EmailAddress, Password, AccountType)
-VALUES ('185ab874-138a-42e8-9e4c-5c42d47f360c', 'Admin', 'admin@syndicatepiling.co.za', SHA2('6f9oc1Tt4vUQlRJ5TL4S',512) , 'Admin');
+VALUES ('185ab874-138a-42e8-9e4c-5c42d47f360c', 'Admin', 'admin', SHA2('admin',512) , 'Admin');
 
-ALTER TABLE Employees ADD COLUMN LOARate DECIMAL(10,2) NOT NULL DEFAULT 0 AFTER Hours;
+INSERT INTO Employees (EmployeeId, FullName, EmailAddress, Password, AccountType)
+VALUES ('185ab874-138a-42e8-9e4c-5c42d47f360x', 'POS', 'POS', SHA2('POS',512) , 'POS');
 
 ###########################################################################################################################################
 
+DROP TABLE IF EXISTS Customers;
+CREATE TABLE Customers (
+	CustomerId VARCHAR(36) NOT NULL,
+	CompanyName VARCHAR(100) NULL,
+	FullName VARCHAR(100) NULL,
+	ContactNumber VARCHAR(100) NULL,
+	EmailAddress VARCHAR(100) NULL,
+	AccountType VARCHAR(100) NULL,
+	DateCreated DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (CustomerId)
+) ENGINE=INNODB;
+
+###########################################################################################################################################
+
+DROP TABLE IF EXISTS Products;
+CREATE TABLE Products (
+	ProductId VARCHAR(36) NOT NULL,
+	Barcode VARCHAR(100) NULL,
+	Code VARCHAR(36) NULL,
+	Name LONGTEXT NOT NULL,
+    Quantity INT NOT NULL DEFAULT 0,
+	CostOfSale DECIMAL(10,2) NOT NULL DEFAULT 0,
+	Price DECIMAL(10,2) NOT NULL DEFAULT 0,
+	Discount DECIMAL(10,2) NOT NULL DEFAULT 0,
+    PRIMARY KEY (ProductId)
+) ENGINE=INNODB;
+
+###########################################################################################################################################
+
+DROP TABLE IF EXISTS Invoices;
+CREATE TABLE Invoices (
+	InvoiceId VARCHAR(36) NOT NULL,
+	CustomerId VARCHAR(36) NULL,
+	FullName VARCHAR(100) NULL,
+	ContactNumber VARCHAR(100) NULL,
+	PaymentType VARCHAR(20) NOT NULL,
+	TillPoint VARCHAR(100) NOT NULL,
+	Total DECIMAL(10,2) NOT NULL,
+	CardPayment DECIMAL(10,2) NOT NULL DEFAULT 0,
+	CashReceived DECIMAL(10,2) NOT NULL DEFAULT 0,
+	FreeTextField1 VARCHAR(50) NULL,
+	FreeTextField2 VARCHAR(50) NULL,
+	FreeTextField3 VARCHAR(50) NULL,
+	FreeTextField4 VARCHAR(50) NULL,
+	Notes LONGTEXT NULL,
+	DateCreated DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (InvoiceId)
+) ENGINE=INNODB;
+
+###########################################################################################################################################
+
+DROP TABLE IF EXISTS InvoiceItems;
+CREATE TABLE InvoiceItems (
+	InvoiceItemId VARCHAR(36) NOT NULL,
+	InvoiceId VARCHAR(36) NOT NULL,
+	ProductId VARCHAR(36) NOT NULL,
+	Code VARCHAR(36) NULL,
+	Name LONGTEXT NOT NULL,
+    Quantity INT NOT NULL,
+	CostOfSale DECIMAL(10,2) NOT NULL,
+	Price DECIMAL(10,2) NOT NULL,
+	Discount DECIMAL(10,2) NOT NULL DEFAULT 0,
+    PRIMARY KEY (InvoiceItemId)
+) ENGINE=INNODB;
+
+###########################################################################################################################################
 
 DROP TABLE IF EXISTS ExceptionLogs;
 CREATE TABLE ExceptionLogs (

@@ -1,9 +1,10 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="admin.master.cs" Inherits="admin_admin" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="pos.master.cs" Inherits="pos_pos" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ACK" %>
 <!DOCTYPE html>
+
 <html>
 <head runat="server">
-    <title>Motown Inc - Admin</title>
+   <title>Motown Inc - POS</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="/js/jquery-3.7.0.min.js"></script>
@@ -15,7 +16,7 @@
     <script src="/lib/simple-datatables/dataTables.js"></script>
 </head>
 <body>
-    <form id="Form" runat="server">
+   <form id="Form" runat="server">
         <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
         <nav class="navbar navbar-expand-lg navbar-light bg-custom py-0">
             <div class="container-fluid">
@@ -28,25 +29,16 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/dashboard"><i class="bx bx-home"></i>&nbsp;Home</a>
+                            <a class="nav-link" href="/pos/dashboard"><i class="bx bx-home"></i>&nbsp;POS</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/products/dashboard"><i class="bx bx-user"></i>&nbsp;Products</a>
+                            <a class="nav-link" href="/pos/customers/dashboard"><i class="bx bx-user"></i>&nbsp;Customers</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="/pos/products/dashboard"><i class="bx bx-user"></i>&nbsp;Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/customers/dashboard"><i class="bx bx-user"></i>&nbsp;Customers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/invoices/dashboard"><i class="bx bx-file"></i>&nbsp;Invoices</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/reports/dashboard"><i class="bx bx-chart"></i>&nbsp;Reports</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/employees/dashboard"><i class="bx bx-user"></i>&nbsp;Employees</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/settings/dashboard"><i class="bx bx-cog"></i>&nbsp;Settings</a>
+                            <a class="nav-link" href="/pos/invoices/dashboard"><i class="bx bx-file"></i>&nbsp;Invoices</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/login"><i class="bx bx-log-out"></i>&nbsp;Logout</a>
