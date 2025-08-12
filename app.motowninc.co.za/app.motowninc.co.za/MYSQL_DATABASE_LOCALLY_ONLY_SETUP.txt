@@ -113,6 +113,16 @@ CREATE TABLE InvoiceItems (
 
 ###########################################################################################################################################
 
+DROP TABLE IF EXISTS Cart;
+CREATE TABLE Cart (
+	EmployeeId VARCHAR(36) NOT NULL,
+	ProductId VARCHAR(36) NOT NULL,
+    Quantity INT NOT NULL,
+    PRIMARY KEY (ProductId)
+) ENGINE=INNODB;
+
+###########################################################################################################################################
+
 DROP TABLE IF EXISTS Settings;
 CREATE TABLE Settings (
 	SettingId VARCHAR(36) NOT NULL,
