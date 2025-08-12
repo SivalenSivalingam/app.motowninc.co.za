@@ -113,13 +113,21 @@
                                     <h5>R<asp:Label runat="server" ID="Total" CssClass="totalAmount"></asp:Label></h5>
                                 </div>
                             </div>
+                             <div class="row CashReceived">
+                                <div class="col">
+                                    <h5>Cash Received</h5>
+                                </div>
+                                <div class="col text-end">
+                                    <asp:TextBox runat="server" ID="CashReceived" CssClass="form-control"></asp:TextBox>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col">
-                                    <h5>Change</h5>
+                                    <h5>Cash Returned</h5>
                                 </div>
                                 <div class="col text-end">
                                     <h5>
-                                        R<asp:Label runat="server" ID="Change" CssClass="change"></asp:Label></h5>
+                                        R<asp:Label runat="server" ID="Change" CssClass="CashReturned"></asp:Label></h5>
                                 </div>
                             </div>
                         </div>
