@@ -59,7 +59,7 @@ public class Email
                 smtpClient.Send(mailMessage);
                 return true;
             }
-            catch (Exception exception)
+            catch
             {
                 //new Repository().Command("INSERT INTO ExceptionLogs (TenantId, TableName, Message, StackTrace) VALUES (@TenantId, @TableName, @Message, @StackTrace)", new List<MySqlParameter>{
                 //new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@TableName", Value = "Email" },
