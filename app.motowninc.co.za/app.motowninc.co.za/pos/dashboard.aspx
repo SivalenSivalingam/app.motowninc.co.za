@@ -248,7 +248,7 @@
                                                     <%#Eval("Description")%>
                                                 </td>
                                                 <td>
-                                                    <asp:TextBox runat="server" ID="Quantity" Text='<%#Eval("Quantity")%>' Width="60" TextMode="Number"></asp:TextBox>
+                                                    <asp:TextBox runat="server" ID="Quantity" Text='<%#Eval("Quantity")%>' Width="70"></asp:TextBox>
                                                 </td>
                                                 <td>
                                                     <%#Eval("Price")%>

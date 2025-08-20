@@ -5,11 +5,6 @@ using System.Data;
 
 public class Cart
 {
-    public DataTable Get(string employeeId)
-    {
-        return new Repository().Query("SELECT * FROM Cart WHERE EmployeeId = @EmployeeId", new List<MySqlParameter> { new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@EmployeeId", Value = employeeId } });
-    }
-
     private DataTable Get(string employeeId, string productId)
     {
         return new Repository().Query("SELECT * FROM Cart WHERE ProductId = @ProductId AND ProductId = @ProductId", new List<MySqlParameter> {
@@ -18,7 +13,7 @@ public class Cart
         });
     }
 
-    public void AddToCart(string employeeId, string productId, int quantity)
+    public void AddToCart(string employeeId, string productId, decimal quantity)
     {
         if (Get(employeeId, productId).Rows.Count == 0)
         {
@@ -27,7 +22,7 @@ public class Cart
                     {
                         new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@EmployeeId", Value = employeeId },
                         new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@ProductId", Value = productId},
-                        new MySqlParameter() { MySqlDbType = MySqlDbType.Int32, ParameterName = "@Quantity", Value = quantity},
+                        new MySqlParameter() { MySqlDbType = MySqlDbType.Decimal, ParameterName = "@Quantity", Value = quantity},
                     });
         }
         else
@@ -36,13 +31,13 @@ public class Cart
         }
     }
 
-    private void UpdateCartQuantity(string employeeId, string productId, int quantity)
+    private void UpdateCartQuantity(string employeeId, string productId, decimal quantity)
     {
         new Repository().Command("UPDATE Cart SET Quantity = Quantity + @Quantity WHERE ProductId = @ProductId AND EmployeeId = @EmployeeId",
         new List<MySqlParameter> {
                 new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@EmployeeId", Value = employeeId },
                 new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@ProductId", Value = productId},
-                new MySqlParameter() { MySqlDbType = MySqlDbType.Int32, ParameterName = "@Quantity", Value = quantity},
+                new MySqlParameter() { MySqlDbType = MySqlDbType.Decimal, ParameterName = "@Quantity", Value = quantity},
             });
     }
 
@@ -54,13 +49,13 @@ public class Cart
         });
     }
 
-    public void OverrideCartQuantity(string employeeId, string productId, int quantity)
+    public void OverrideCartQuantity(string employeeId, string productId, decimal quantity)
     {
         new Repository().Command("UPDATE Cart SET Quantity = @Quantity WHERE ProductId = @ProductId AND EmployeeId = @EmployeeId",
         new List<MySqlParameter> {
                 new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@EmployeeId", Value = employeeId },
                 new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@ProductId", Value = productId},
-                new MySqlParameter() { MySqlDbType = MySqlDbType.Int32, ParameterName = "@Quantity", Value = quantity},
+                new MySqlParameter() { MySqlDbType = MySqlDbType.Decimal, ParameterName = "@Quantity", Value = quantity},
             });
     }
 }

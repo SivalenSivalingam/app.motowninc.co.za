@@ -39,7 +39,6 @@ public partial class pos_dashboard : Page
 
         sql.Append("SELECT * FROM Customers ORDER BY Name;");
         sql.Append("SELECT * FROM Products ORDER BY Name;");
-        sql.Append("SELECT Code, Type, Name, Description, Cart.Quantity, Price, Discount, Cart.ProductId FROM Cart INNER JOIN Products ON Cart.ProductId = Products.ProductId WHERE Cart.EmployeeId = @EmployeeId ORDER BY Cart.DateCreated;");
 
         DataSet data = new DatabaseTable().SQL(sql.ToString(), new List<MySqlParameter> {
                                 new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@EmployeeId", Value = Session["SessionEmployeeId"].ToString()},
@@ -51,16 +50,34 @@ public partial class pos_dashboard : Page
         Products.DataSource = data.Tables[1];
         Products.DataBind();
 
-        Cart.DataSource = data.Tables[2];
-        Cart.DataBind();
+        LoadCart();
     }
 
     private void LoadCart()
     {
-        Cart.DataSource = new DatabaseTable().Select("SELECT Code, Type, Name, Description, Cart.Quantity, Price, Discount, Cart.ProductId FROM Cart INNER JOIN Products ON Cart.ProductId = Products.ProductId WHERE Cart.EmployeeId = @EmployeeId ORDER BY Cart.DateCreated;", new List<MySqlParameter> {
+        DataTable dataTable = new DatabaseTable().Select("SELECT Code, Type, Name, Description, Cart.Quantity, Price, Discount, Cart.ProductId FROM Cart INNER JOIN Products ON Cart.ProductId = Products.ProductId WHERE Cart.EmployeeId = @EmployeeId ORDER BY Cart.DateCreated;", new List<MySqlParameter> {
                               new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@EmployeeId", Value = Session["SessionEmployeeId"].ToString()},
                            });
+
+        Cart.DataSource = dataTable;
         Cart.DataBind();
+
+        decimal subtotal = 0;
+        decimal discount = 0;
+
+        foreach (DataRow dataRow in dataTable.Rows)
+        {
+            subtotal += decimal.Parse(dataRow["Quantity"].ToString()) * (decimal.Parse(dataRow["Price"].ToString()) - decimal.Parse(dataRow["Discount"].ToString()));
+            discount += decimal.Parse(dataRow["Quantity"].ToString()) * decimal.Parse(dataRow["Discount"].ToString());
+        }
+
+        Subtotal.Text = subtotal.ToString("N2");
+        Discount.Text = discount.ToString("N2");
+
+        decimal total = subtotal - discount;
+        decimal vat = total * (decimal)0.15;
+        VAT.Text = vat.ToString("N2");
+        Total.Text = (total + vat).ToString("N2");
     }
 
     protected void Products_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -95,7 +112,7 @@ public partial class pos_dashboard : Page
         switch(e.CommandName)
         {
             case "Update":
-                new Cart().OverrideCartQuantity(Session["SessionEmployeeId"].ToString(), e.CommandArgument.ToString(), int.Parse((e.Item.FindControl("Quantity") as TextBox).Text));
+                new Cart().OverrideCartQuantity(Session["SessionEmployeeId"].ToString(), e.CommandArgument.ToString(), decimal.Parse((e.Item.FindControl("Quantity") as TextBox).Text));
                 break;
             case "Delete":
                 new Cart().Delete(Session["SessionEmployeeId"].ToString(), e.CommandArgument.ToString());
