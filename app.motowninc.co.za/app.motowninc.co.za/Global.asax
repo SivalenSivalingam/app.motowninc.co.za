@@ -17,6 +17,6 @@
            "\nError Message:" + exception.Message.ToString() +
            "\nStack Trace:" + exception.StackTrace.ToString();
 
-        Response.Redirect("/error?url=" + HttpContext.Current.Request.Url.ToString() + "&message=" + exception.Message.ToString());
+        // Response.Redirect("/error?url=" + HttpContext.Current.Request.Url.ToString() + "&message=" + exception.Message.ToString());
     }
 </script>

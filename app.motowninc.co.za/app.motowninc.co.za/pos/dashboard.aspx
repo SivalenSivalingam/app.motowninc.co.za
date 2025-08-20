@@ -64,7 +64,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label class="pos-label">Note</label>
-                                    <asp:TextBox runat="server" ID="Notes" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="Note" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
                                 </div>
                             </div>
                         </div>
@@ -150,6 +150,11 @@
                                 <div class="col text-start">
                                     <b>Checkout</b>
                                 </div>
+                                 <div class="col text-end">
+                                    <asp:LinkButton runat="server" ID="Submit" OnClick="Submit_Click">
+                                        <span class="btn btn-primary btn-sm">Submit</span>
+                                    </asp:LinkButton>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -198,7 +203,7 @@
                                     <h5>Cash Returned</h5>
                                 </div>
                                 <div class="col text-end">
-                                    <h5>R<asp:Label runat="server" ID="Change" CssClass="CashReturned"></asp:Label></h5>
+                                    <h5>R<asp:Label runat="server" ID="CashReturned" CssClass="CashReturned"></asp:Label></h5>
                                 </div>
                             </div>
                         </div>
@@ -209,6 +214,11 @@
                             <div class="row">
                                 <div class="col text-start">
                                     Selected Products
+                                </div>
+                                 <div class="col text-end">
+                                    <asp:LinkButton runat="server" ID="ClearCart" OnClick="ClearCart_Click" ForeColor="Black">
+                                        <i class="bx bx-eraser"></i>&nbsp;
+                                    </asp:LinkButton>
                                 </div>
                             </div>
                         </div>

@@ -5,9 +5,16 @@ using System.Data;
 
 public class Cart
 {
+    public DataTable Get(string employeeId)
+    {
+        return new Repository().Query("SELECT Cart.ProductId, Code, Type, Name, Description, Cart.Quantity, Price, Discount FROM Cart INNER JOIN Products ON Cart.ProductId = Products.ProductId WHERE Cart.EmployeeId = @EmployeeId ORDER BY Cart.DateCreated;", new List<MySqlParameter> {
+            new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@EmployeeId", Value = employeeId },
+        });
+    }
+
     private DataTable Get(string employeeId, string productId)
     {
-        return new Repository().Query("SELECT * FROM Cart WHERE ProductId = @ProductId AND ProductId = @ProductId", new List<MySqlParameter> {
+        return new Repository().Query("SELECT * FROM Cart WHERE EmployeeId = @EmployeeId AND ProductId = @ProductId;", new List<MySqlParameter> {
             new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@EmployeeId", Value = employeeId },
             new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@ProductId", Value = productId},
         });
@@ -57,5 +64,15 @@ public class Cart
                 new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@ProductId", Value = productId},
                 new MySqlParameter() { MySqlDbType = MySqlDbType.Decimal, ParameterName = "@Quantity", Value = quantity},
             });
+    }
+
+    public void ClearCart(string employeeId)
+    {
+        DataTable cart = Get(employeeId);
+
+        foreach (DataRow dataRow in cart.Rows)
+        {
+            Delete(employeeId, dataRow["ProductId"].ToString());
+        }
     }
 }

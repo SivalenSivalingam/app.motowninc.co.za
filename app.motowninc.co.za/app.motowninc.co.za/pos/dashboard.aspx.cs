@@ -1,9 +1,15 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Dapper;
+using MigraDoc.DocumentObjectModel;
+using MigraDoc.Rendering;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -135,5 +141,109 @@ public partial class pos_dashboard : Page
     protected void Product_TextChanged(object sender, EventArgs e)
     {
 
+    }
+
+    private decimal GetDecimal(string value)
+    {
+        value = Regex.Replace(value, @"[a-zA-Z\s]", "");
+
+        if (string.IsNullOrEmpty(value))
+            return 0;
+
+        return decimal.Parse(value.Trim().ToString().Replace(",", "."), CultureInfo.InvariantCulture);
+    }
+
+    protected void Submit_Click(object sender, EventArgs e)
+    {
+        var InvoiceId = Guid.NewGuid().ToString();
+
+        var result = new DatabaseTable().Insert("Invoices",
+               new List<MySqlParameter> {
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@InvoiceId", Value = InvoiceId },
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@EmployeeId", Value = Session["SessionEmployeeId"].ToString()},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@FullName", Value = FullName.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@ContactNumber", Value = ContactNumber.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@EmailAddress", Value = EmailAddress.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@PaymentType", Value = PaymentType.SelectedItem.Value},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.Decimal, ParameterName="@Total", Value = GetDecimal(Total.Text)},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.Decimal, ParameterName="@CashReceived", Value = GetDecimal(CashReceived.Text)},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.Decimal, ParameterName="@CashReturned", Value = GetDecimal(CashReturned.Text)},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Make", Value = Make.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Model", Value = Model.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Mileage", Value = Mileage.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@LicensePlate", Value = LicensePlate.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.LongText, ParameterName="@Note", Value = Note.Text},
+               });
+
+        if(!result.Item1)
+        {
+            ((pos_pos)Page.Master).Alert(result.Item2);
+            return;
+        }
+
+        Cart cart = new Cart();
+
+        DataTable cartInvoiceItems = cart.Get(Session["SessionEmployeeId"].ToString());
+
+        List<InvoiceItem> invoiceItems = new List<InvoiceItem>();
+
+        foreach (DataRow dataRow in cartInvoiceItems.Rows)
+        {
+            invoiceItems.Add(new InvoiceItem()
+            {
+                InvoiceItemId = Guid.NewGuid().ToString(),
+                InvoiceId = InvoiceId,
+                ProductId = dataRow["ProductId"].ToString(),
+                Code = dataRow["Code"].ToString(),
+                Type = dataRow["Type"].ToString(),
+                Name = dataRow["Name"].ToString(),
+                Description = dataRow["Description"].ToString(),
+                Quantity = decimal.Parse(dataRow["Quantity"].ToString()),
+                Price = decimal.Parse(dataRow["Price"].ToString()),
+                Discount = decimal.Parse(dataRow["Discount"].ToString()),
+            });
+        }
+
+        using (var db = new MySqlConnection(new Repository().GetMySqlConnection()))
+        {
+            string sql = @"
+                INSERT INTO InvoiceItems (
+                    InvoiceItemId, InvoiceId, ProductId, Code, Type, Name, Description, Quantity, Price, Discount
+                )
+                VALUES (
+                    @InvoiceItemId, @InvoiceId, @ProductId, @Code, @Type, @Name, @Description, @Quantity, @Price, @Discount
+                )";
+
+            int rowsAffected = db.Execute(sql, invoiceItems);
+        }
+
+
+        cart.ClearCart(Session["SessionEmployeeId"].ToString());
+        LoadCart();
+        var document = new PDF().CreateInvoice(InvoiceId);
+        Dowload(document.Item1, document.Item2);
+    }
+
+    private void Dowload(Document document, string fileName)
+    {
+        var pdfRenderer = new PdfDocumentRenderer();
+        pdfRenderer.Document = document;
+        pdfRenderer.RenderDocument();
+
+        MemoryStream stream = new MemoryStream();
+        pdfRenderer.Save(stream, false);
+        Response.Clear();
+        Response.AddHeader("Content-type", "application/pdf");
+        Response.AddHeader("Content-Disposition", "attachment; filename=" + fileName + ".pdf");
+        Response.BinaryWrite(stream.ToArray());
+        Response.Flush();
+        stream.Close();
+        Response.End();
+    }
+
+    protected void ClearCart_Click(object sender, EventArgs e)
+    {
+        new Cart().ClearCart(Session["SessionEmployeeId"].ToString());
+        LoadCart();
     }
 }
