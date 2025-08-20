@@ -217,6 +217,14 @@ public partial class pos_dashboard : Page
             int rowsAffected = db.Execute(sql, invoiceItems);
         }
 
+        // Stock Take - Decrease Product Quantity
+        using (var db = new MySqlConnection(new Repository().GetMySqlConnection()))
+        {
+            string sql = @"UPDATE Products SET Quantity = Quantity - @Quantity WHERE ProductId = @ProductId";
+
+            int rowsAffected = db.Execute(sql, invoiceItems);
+        }
+
 
         cart.ClearCart(Session["SessionEmployeeId"].ToString());
         LoadCart();

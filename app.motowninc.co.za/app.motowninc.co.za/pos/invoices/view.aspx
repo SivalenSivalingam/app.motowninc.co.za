@@ -21,7 +21,9 @@
                                     <a href="/pos/invoices/dashboard" class="black-links"><span class="bx bx-arrow-back"></span></a>&nbsp;Invoices Dashboard
                                 </div>
                                 <div class="col text-end">
-                                    <asp:LinkButton runat="server" ID="Cancel" OnClick="Cancel_Click" ForeColor="Black">Cancel</asp:LinkButton>
+                                    <asp:LinkButton runat="server" ID="Cancel" OnClick="Cancel_Click" ForeColor="Black" OnClientClick="return confirm('Are you sure you want to cancel this invoice?')">Cancel</asp:LinkButton>
+                                    &nbsp;|&nbsp;
+                                    <asp:LinkButton runat="server" ID="CancelReturnQuantity" OnClick="CancelReturnQuantity_Click" ForeColor="Black" OnClientClick="return confirm('Are you sure you want to cancel and return quantity for this invoice?')">Cancel & Return Quantity</asp:LinkButton>
                                     &nbsp;|&nbsp;
                                     <asp:LinkButton runat="server" ID="Download" OnClick="Download_Click" ForeColor="Black">Download</asp:LinkButton>
                                 </div>

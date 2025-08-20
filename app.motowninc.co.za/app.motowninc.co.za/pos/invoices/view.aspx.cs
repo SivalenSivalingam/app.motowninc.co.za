@@ -1,6 +1,10 @@
-﻿using MigraDoc.DocumentObjectModel;
+﻿using Dapper;
+using MigraDoc.DocumentObjectModel;
 using MigraDoc.Rendering;
+using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Web.UI;
 
@@ -16,7 +20,46 @@ public partial class pos_invoices_view : Page
 
     protected void Cancel_Click(object sender, EventArgs e)
     {
+        var result = new DatabaseTable().Update("Invoices", new List<MySqlParameter> {
+                         new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@InvoiceId", Value = Request.QueryString["id"].ToString()},
+                         new MySqlParameter() { MySqlDbType = MySqlDbType.Bit, ParameterName="@Cancelled", Value = true}
+                    });
 
+        Response.Redirect("/pos/dashboard");
+    }
+
+    protected void CancelReturnQuantity_Click(object sender, EventArgs e)
+    {
+        DataTable dataTable = new DatabaseTable().Select("SELECT ProductId, Quantity FROM InvoiceItems WHERE InvoiceId = @InvoiceId;", new List<MySqlParameter> {
+                              new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@InvoiceId", Value = Request.QueryString["id"].ToString()},
+                           });
+
+        List<InvoiceItem> invoiceItems = new List<InvoiceItem>();
+
+        foreach (DataRow dataRow in dataTable.Rows)
+        {
+            invoiceItems.Add(new InvoiceItem()
+            {
+                ProductId = dataRow["ProductId"].ToString(),
+                Quantity = decimal.Parse(dataRow["Quantity"].ToString()),
+            });
+        }
+
+        // Stock Take - Increase Product Quantity
+        using (var db = new MySqlConnection(new Repository().GetMySqlConnection()))
+        {
+            string sql = @"UPDATE Products SET Quantity = Quantity + @Quantity WHERE ProductId = @ProductId";
+
+            db.Execute(sql, invoiceItems);
+        }
+
+        var result = new DatabaseTable().Update("Invoices", new List<MySqlParameter> {
+                         new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@InvoiceId", Value = Request.QueryString["id"].ToString()},
+                         new MySqlParameter() { MySqlDbType = MySqlDbType.Bit, ParameterName="@Cancelled", Value = true},
+                         new MySqlParameter() { MySqlDbType = MySqlDbType.Bit, ParameterName="@ReturnedQuantity", Value = true}
+                    });
+
+        Response.Redirect("/pos/dashboard");
     }
 
     protected void Download_Click(object sender, EventArgs e)
