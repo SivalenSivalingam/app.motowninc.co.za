@@ -69,74 +69,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col text-start">
-                                    <b>Checkout</b>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h5>Subtotal</h5>
-                                </div>
-                                <div class="col text-end">
-                                    <h5>R<asp:Label runat="server" ID="Subtotal"></asp:Label></h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <h5>Discount</h5>
-                                </div>
-                                <div class="col text-end">
-                                    <h5>R<asp:Label runat="server" ID="Discount"></asp:Label></h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <h5>VAT</h5>
-                                </div>
-                                <div class="col text-end">
-                                    <h5>R<asp:Label runat="server" ID="VAT"></asp:Label></h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <h5>Total</h5>
-                                </div>
-                                <div class="col text-end">
-                                    <h5>R<asp:Label runat="server" ID="Total" CssClass="totalAmount"></asp:Label></h5>
-                                </div>
-                            </div>
-                            <div class="row Cash">
-                                <div class="col">
-                                    <h5>Cash Received</h5>
-                                </div>
-                                <div class="col text-end">
-                                    <asp:TextBox runat="server" ID="CashReceived" CssClass="form-control"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="row Cash">
-                                <div class="col">
-                                    <h5>Cash Returned</h5>
-                                </div>
-                                <div class="col text-end">
-                                    <h5>R<asp:Label runat="server" ID="Change" CssClass="CashReturned"></asp:Label></h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card">
+                    <br />
+                     <div class="card">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col text-start">
@@ -214,6 +148,66 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col text-start">
+                                    <b>Checkout</b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5>Subtotal</h5>
+                                </div>
+                                <div class="col text-end">
+                                    <h5>R<asp:Label runat="server" ID="Subtotal"></asp:Label></h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <h5>Discount</h5>
+                                </div>
+                                <div class="col text-end">
+                                    <h5>R<asp:Label runat="server" ID="Discount"></asp:Label></h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <h5>VAT</h5>
+                                </div>
+                                <div class="col text-end">
+                                    <h5>R<asp:Label runat="server" ID="VAT"></asp:Label></h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <h5>Total</h5>
+                                </div>
+                                <div class="col text-end">
+                                    <h5>R<asp:Label runat="server" ID="Total" CssClass="totalAmount"></asp:Label></h5>
+                                </div>
+                            </div>
+                            <div class="row Cash">
+                                <div class="col">
+                                    <h5>Cash Received</h5>
+                                </div>
+                                <div class="col text-end">
+                                    <asp:TextBox runat="server" ID="CashReceived" CssClass="form-control"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="row Cash">
+                                <div class="col">
+                                    <h5>Cash Returned</h5>
+                                </div>
+                                <div class="col text-end">
+                                    <h5>R<asp:Label runat="server" ID="Change" CssClass="CashReturned"></asp:Label></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                     <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col text-start">
                                     Selected Products
                                 </div>
                             </div>
@@ -229,6 +223,7 @@
                                                         <th>Code</th>
                                                         <th>Type</th>
                                                         <th>Name</th>
+                                                        <th>Description</th>
                                                         <th>Quantity</th>
                                                         <th>Price</th>
                                                         <th>Discount</th>
@@ -240,7 +235,8 @@
                                         <ItemTemplate>
                                             <tr>
                                                 <td>
-                                                    <%#Eval("Code")%>
+                                                    <asp:LinkButton runat="server" ID="Delete" CommandName="Delete" CommandArgument='<%#Eval("ProductId")%>' class="dropdown-item"><i class="bx bx-trash"></i>&nbsp; <%#Eval("Code")%></asp:LinkButton>
+                                                    </li>
                                                 </td>
                                                 <td>
                                                     <%#Eval("Type")%>
@@ -252,7 +248,7 @@
                                                     <%#Eval("Description")%>
                                                 </td>
                                                 <td>
-                                                    <asp:TextBox runat="server" ID="Quantity" Text='<%#Eval("Quantity")%>'></asp:TextBox>
+                                                    <asp:TextBox runat="server" ID="Quantity" Text='<%#Eval("Quantity")%>' Width="60" TextMode="Number"></asp:TextBox>
                                                 </td>
                                                 <td>
                                                     <%#Eval("Price")%>
@@ -261,7 +257,7 @@
                                                     <%#Eval("Discount")%>
                                                 </td>
                                                 <td style="text-align: end !important">
-                                                    <asp:LinkButton runat="server" ID="Update" CommandName="Update" CommandArgument='<%#Eval("ProductId")%>' class="dropdown-item"><i class="bx bx-right-arrow-alt"></i></asp:LinkButton>
+                                                    <asp:LinkButton runat="server" ID="Update" CommandName="Update" CommandArgument='<%#Eval("ProductId")%>' class="dropdown-item"><i class="bx bx-save"></i></asp:LinkButton>
                                                     </li>
                                                 </td>
                                             </tr>

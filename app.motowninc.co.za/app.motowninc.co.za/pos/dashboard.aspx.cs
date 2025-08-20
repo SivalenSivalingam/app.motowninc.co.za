@@ -11,6 +11,8 @@ public partial class pos_dashboard : Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        ((pos_pos)Page.Master).SessionCheck();
+
         if (!IsPostBack)
         {
             LoadDropdownOptions();
@@ -37,21 +39,36 @@ public partial class pos_dashboard : Page
 
         sql.Append("SELECT * FROM Customers ORDER BY Name;");
         sql.Append("SELECT * FROM Products ORDER BY Name;");
+        sql.Append("SELECT Code, Type, Name, Description, Cart.Quantity, Price, Discount, Cart.ProductId FROM Cart INNER JOIN Products ON Cart.ProductId = Products.ProductId WHERE Cart.EmployeeId = @EmployeeId ORDER BY Cart.DateCreated;");
 
-        DataSet data = new DatabaseTable().SQL(sql.ToString());
+        DataSet data = new DatabaseTable().SQL(sql.ToString(), new List<MySqlParameter> {
+                                new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@EmployeeId", Value = Session["SessionEmployeeId"].ToString()},
+                           });
 
         Customers.DataSource = data.Tables[0];
         Customers.DataBind();
 
         Products.DataSource = data.Tables[1];
         Products.DataBind();
+
+        Cart.DataSource = data.Tables[2];
+        Cart.DataBind();
+    }
+
+    private void LoadCart()
+    {
+        Cart.DataSource = new DatabaseTable().Select("SELECT Code, Type, Name, Description, Cart.Quantity, Price, Discount, Cart.ProductId FROM Cart INNER JOIN Products ON Cart.ProductId = Products.ProductId WHERE Cart.EmployeeId = @EmployeeId ORDER BY Cart.DateCreated;", new List<MySqlParameter> {
+                              new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName = "@EmployeeId", Value = Session["SessionEmployeeId"].ToString()},
+                           });
+        Cart.DataBind();
     }
 
     protected void Products_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         if (e.CommandName == "Select")
         {
-            
+            new Cart().AddToCart(Session["SessionEmployeeId"].ToString(), e.CommandArgument.ToString(), 1);
+            LoadCart();
         }
     }
 
@@ -75,7 +92,17 @@ public partial class pos_dashboard : Page
 
     protected void Cart_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
+        switch(e.CommandName)
+        {
+            case "Update":
+                new Cart().OverrideCartQuantity(Session["SessionEmployeeId"].ToString(), e.CommandArgument.ToString(), int.Parse((e.Item.FindControl("Quantity") as TextBox).Text));
+                break;
+            case "Delete":
+                new Cart().Delete(Session["SessionEmployeeId"].ToString(), e.CommandArgument.ToString());
+                break;
+        }
 
+        LoadCart();
     }
 
     protected void CustomerSearch_Click(object sender, EventArgs e)
