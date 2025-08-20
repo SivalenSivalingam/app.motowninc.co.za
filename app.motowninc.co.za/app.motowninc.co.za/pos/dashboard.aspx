@@ -70,7 +70,7 @@
                         </div>
                     </div>
                     <br />
-                     <div class="card">
+                    <div class="card">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col text-start">
@@ -182,7 +182,7 @@
                                     <h5>Total</h5>
                                 </div>
                                 <div class="col text-end">
-                                    <h5>R<asp:Label runat="server" ID="Total" CssClass="totalAmount"></asp:Label></h5>
+                                    <h5>R<asp:Label runat="server" ID="Total" CssClass="TotalAmount"></asp:Label></h5>
                                 </div>
                             </div>
                             <div class="row Cash">
@@ -190,7 +190,7 @@
                                     <h5>Cash Received</h5>
                                 </div>
                                 <div class="col text-end">
-                                    <asp:TextBox runat="server" ID="CashReceived" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="CashReceived" CssClass="form-control CashReceived" oninput="calculateChange()"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="row Cash">
@@ -204,7 +204,7 @@
                         </div>
                     </div>
                     <br />
-                     <div class="card">
+                    <div class="card">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col text-start">
@@ -354,6 +354,21 @@
             var dropdown = document.getElementById("<%= PaymentType.ClientID %>");
             toggleCashRows(dropdown);
         });
+    </script>
+    <script>
+        function calculateChange() {
+            let totalText = document.querySelector(".TotalAmount").textContent || "0";
+            let cashReceivedText = document.querySelector(".CashReceived").value || "0";
+
+            // Parse values (strip out "R" if needed)
+            let total = parseFloat(totalText.replace(/[^\d.]/g, "")) || 0;
+            let cashReceived = parseFloat(cashReceivedText) || 0;
+
+            let change = cashReceived - total;
+
+            // Update the label
+            document.querySelector(".CashReturned").textContent = change.toFixed(2);
+        }
     </script>
 </asp:Content>
 

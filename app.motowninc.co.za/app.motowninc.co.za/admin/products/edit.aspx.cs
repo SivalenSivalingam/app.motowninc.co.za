@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -59,8 +61,8 @@ public partial class admin_products_edit : Page
                     new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Name", Value = Name.Text},
                     new MySqlParameter() { MySqlDbType = MySqlDbType.LongText, ParameterName="@Description", Value = Description.Text},
                     new MySqlParameter() { MySqlDbType = MySqlDbType.Int32, ParameterName="@Quantity", Value = Quantity.Text},
-                    new MySqlParameter() { MySqlDbType = MySqlDbType.Decimal, ParameterName="@Price", Value = Price.Text},
-                    new MySqlParameter() { MySqlDbType = MySqlDbType.Decimal, ParameterName="@Discount", Value = Discount.Text},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.Decimal, ParameterName="@Price", Value = GetDecimal(Price.Text)},
+                    new MySqlParameter() { MySqlDbType = MySqlDbType.Decimal, ParameterName="@Discount", Value = GetDecimal(Discount.Text)},
                     new MySqlParameter() { MySqlDbType = MySqlDbType.VarChar, ParameterName="@Barcode", Value = Barcode.Text}
                 });
 
@@ -72,6 +74,15 @@ public partial class admin_products_edit : Page
         {
             ((admin_admin)Page.Master).Alert(result.Item2);
         }
+    }
 
+    private decimal GetDecimal(string value)
+    {
+        value = Regex.Replace(value, @"[a-zA-Z]", "");
+
+        if (string.IsNullOrEmpty(value))
+            return 0;
+
+        return decimal.Parse(value.Trim().ToString().Replace(",", "."), CultureInfo.InvariantCulture);
     }
 }
