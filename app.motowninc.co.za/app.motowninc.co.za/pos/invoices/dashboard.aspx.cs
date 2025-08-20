@@ -21,6 +21,9 @@ public partial class pos_invoices_dashboard : Page
 
     protected void Invoices_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
-
+        if(e.CommandName == "Edit")
+        {
+            Response.Redirect("/pos/invoices/view?id=" + e.CommandArgument.ToString());
+        }
     }
 }
