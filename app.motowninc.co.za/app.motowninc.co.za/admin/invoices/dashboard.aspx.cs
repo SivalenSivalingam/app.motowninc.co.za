@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -9,14 +10,24 @@ public partial class admin_invoices_dashboard : System.Web.UI.Page
     {
         if (!Page.IsPostBack)
         {
+            FromDate.Text = DateTime.Now.AddMonths(-1).ToString("dd/MM/yyyy");
+            ToDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
             LoadDashboard();
         }
     }
 
     private void LoadDashboard()
     {
-        Invoices.DataSource = new DatabaseTable().Select("SELECT InvoiceId, Cancelled, ReturnedQuantity, FullName, ContactNumber, Total, DateCreated FROM Invoices ORDER BY DateCreated");
+        Invoices.DataSource = new Reports().Invoices(DateTime.Parse(GetDate(FromDate.Text)), DateTime.Parse(GetDate(ToDate.Text)));
         Invoices.DataBind();
+    }
+
+    private string GetDate(string date)
+    {
+        if (string.IsNullOrEmpty(date))
+            return null;
+
+        return DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
     }
 
     protected void Invoices_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -39,5 +50,10 @@ public partial class admin_invoices_dashboard : System.Web.UI.Page
             return invoiceId += "&nbsp;<span class='badge bg-warning'>C-RQ</span>";
 
         return invoiceId;
+    }
+
+    protected void Search_Click(object sender, EventArgs e)
+    {
+        LoadDashboard();
     }
 }

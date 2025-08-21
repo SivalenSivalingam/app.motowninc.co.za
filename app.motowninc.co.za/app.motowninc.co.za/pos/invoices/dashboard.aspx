@@ -9,7 +9,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col text-start">
-                                    Invoices Dashboard
+                                    Invoices Dashboard (Last 30 Days)
                                 </div>
                             </div>
                         </div>
@@ -25,6 +25,7 @@
                                                         <th>Customer</th>
                                                         <th>Contact Number</th>
                                                         <th>Total</th>
+                                                        <th>Payment Type</th>
                                                         <th>Date Created</th>
                                                         <td></td>
                                                     </tr>
@@ -44,6 +45,9 @@
                                                 </td>
                                                  <td>
                                                     <%#Eval("Total")%>
+                                                </td>
+                                                 <td>
+                                                    <%#Eval("PaymentType")%>
                                                 </td>
                                                  <td>
                                                     <%#Eval("DateCreated")%>

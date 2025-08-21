@@ -15,7 +15,7 @@ public partial class pos_invoices_dashboard : Page
 
     private void LoadDashboard()
     {
-        Invoices.DataSource = new DatabaseTable().Select("SELECT InvoiceId, Cancelled, ReturnedQuantity, FullName, ContactNumber, Total, DateCreated FROM Invoices ORDER BY DateCreated");
+        Invoices.DataSource = new Reports().Invoices(DateTime.Now.AddMonths(-1), DateTime.Now);
         Invoices.DataBind();
     }
 
