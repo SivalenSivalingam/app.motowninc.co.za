@@ -300,3 +300,18 @@ span.bi.bi-arrow-left, span.bi.bi-arrow-left:active, span.bi.bi-arrow-left:hover
     font-size:12px;
     margin-top:10px;
 }
+
+.summary-table-style {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.summary-table-style td,
+.summary-table-style th {
+    padding: 2px;
+    font-size: 13px;
+    white-space: nowrap !important;
+    border: 1px solid #dddddd;
+}
+    

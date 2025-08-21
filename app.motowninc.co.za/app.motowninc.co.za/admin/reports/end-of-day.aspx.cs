@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Globalization;
+using System.Data;
 
 public partial class admin_reports_end_of_day : System.Web.UI.Page
 {
@@ -19,8 +20,16 @@ public partial class admin_reports_end_of_day : System.Web.UI.Page
 
     private void LoadReport()
     {
-        Report.DataSource = new Reports().EndOfDay(DateTime.Parse(GetDate(Date.Text)));
-        Report.DataBind();
+        DataSet dataSet = new Reports().EndOfDay(DateTime.Parse(GetDate(Date.Text)));
+
+        Report1.DataSource = dataSet.Tables[0];
+        Report1.DataBind();
+
+        Report2.DataSource = dataSet.Tables[1];
+        Report2.DataBind();
+
+        Report3.DataSource = dataSet.Tables[2];
+        Report3.DataBind();
     }
 
     private string GetDate(string date)

@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/admin/admin.master" AutoEventWireup="true" CodeFile="end-of-day.aspx.cs" Inherits="admin_reports_end_of_day" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<asp:Content ID="Body" ContentPlaceHolderID="Body" Runat="Server">
+<asp:Content ID="Body" ContentPlaceHolderID="Body" runat="Server">
     <main id="main" class="main">
         <section class="section">
             <div class="row">
@@ -29,7 +30,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <asp:Repeater runat="server" ID="Report">
+                                    <asp:Repeater runat="server" ID="Report1">
                                         <HeaderTemplate>
                                             <table id="datatable" class="table table-striped table-borderless">
                                                 <thead>
@@ -47,7 +48,7 @@
                                         </HeaderTemplate>
                                         <ItemTemplate>
                                             <tr>
-                                                 <td>
+                                                <td>
                                                     <%#Eval("Employee")%>
                                                 </td>
                                                 <td>
@@ -67,6 +68,80 @@
                                                 </td>
                                                 <td>
                                                     <%#Eval("DateCreated")%>
+                                                </td>
+                                            </tr>
+                                        </ItemTemplate>
+                                        <FooterTemplate>
+                                            </tbody>
+                                    </table>
+                                        </FooterTemplate>
+                                    </asp:Repeater>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                         <div class="card-header">
+                            <div class="row">
+                                <div class="col text-start">
+                                    Summary
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <asp:Repeater runat="server" ID="Report2">
+                                        <HeaderTemplate>
+                                            <table class="summary-table-style">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Employee Sales</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                        </HeaderTemplate>
+                                        <ItemTemplate>
+                                            <tr>
+                                                <td>
+                                                    <%#Eval("Employee")%>
+                                                </td>
+                                                <td>
+                                                    <%#Eval("Total")%>
+                                                </td>
+                                            </tr>
+                                        </ItemTemplate>
+                                        <FooterTemplate>
+                                            </tbody>
+                                    </table>
+                                        </FooterTemplate>
+                                    </asp:Repeater>
+                                </div>
+                                <div class="col-lg-3">
+                                    <asp:Repeater runat="server" ID="Report3">
+                                        <HeaderTemplate>
+                                            <table class="summary-table-style">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Payment Type</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                        </HeaderTemplate>
+                                        <ItemTemplate>
+                                            <tr>
+                                                <td>
+                                                    <%#Eval("PaymentType")%>
+                                                </td>
+                                                <td>
+                                                    <%#Eval("Total")%>
                                                 </td>
                                             </tr>
                                         </ItemTemplate>

@@ -20,7 +20,7 @@ public class Reports
           });
     }
 
-    public DataTable EndOfDay(DateTime date)
+    public DataSet EndOfDay(DateTime date)
     {
         StringBuilder sql = new StringBuilder("SELECT ");
         sql.Append("(SELECT FullName FROM Employees WHERE Employees.EmployeeId = Invoices.EmployeeId) AS 'Employee', ");
@@ -31,7 +31,19 @@ public class Reports
         sql.Append("DAY(Invoices.DateCreated) = DAY(@Date) ");
         sql.Append("ORDER BY Invoices.DateCreated DESC;");
 
-        return new DatabaseTable().Select(sql.ToString(),
+        sql.Append("SELECT Employees.FullName AS 'Employee', SUM(Invoices.Total) AS 'Total' FROM Invoices INNER JOIN Employees ON Employees.EmployeeId = Invoices.EmployeeId ");
+        sql.Append("WHERE YEAR(Invoices.DateCreated) = YEAR(@Date) AND ");
+        sql.Append("MONTH(Invoices.DateCreated) = MONTH(@Date) AND ");
+        sql.Append("DAY(Invoices.DateCreated) = DAY(@Date) ");
+        sql.Append("ORDER BY Employees.FullName;");
+
+        sql.Append("SELECT PaymentType, SUM(Invoices.Total) AS 'Total' FROM Invoices ");
+        sql.Append("WHERE YEAR(Invoices.DateCreated) = YEAR(@Date) AND ");
+        sql.Append("MONTH(Invoices.DateCreated) = MONTH(@Date) AND ");
+        sql.Append("DAY(Invoices.DateCreated) = DAY(@Date) ");
+        sql.Append("GROUP BY PaymentType ORDER BY PaymentType;");
+
+        return new DatabaseTable().SQL(sql.ToString(),
           new List<MySqlParameter> {
                 new MySqlParameter() { MySqlDbType = MySqlDbType.Date, ParameterName = "@Date", Value = date},
           });
