@@ -95,7 +95,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                     <asp:Repeater runat="server" ID="Report2">
                                         <HeaderTemplate>
                                             <table class="summary-table-style">
@@ -123,7 +123,7 @@
                                         </FooterTemplate>
                                     </asp:Repeater>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                     <asp:Repeater runat="server" ID="Report3">
                                         <HeaderTemplate>
                                             <table class="summary-table-style">
@@ -139,6 +139,38 @@
                                             <tr>
                                                 <td>
                                                     <%#Eval("PaymentType")%>
+                                                </td>
+                                                <td>
+                                                    <%#Eval("Total")%>
+                                                </td>
+                                            </tr>
+                                        </ItemTemplate>
+                                        <FooterTemplate>
+                                            </tbody>
+                                    </table>
+                                        </FooterTemplate>
+                                    </asp:Repeater>
+                                </div>
+                                <div class="col-lg-4">
+                                    <asp:Repeater runat="server" ID="Report4">
+                                        <HeaderTemplate>
+                                            <table class="summary-table-style">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Product Type</th>
+                                                        <th>Quantity</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                        </HeaderTemplate>
+                                        <ItemTemplate>
+                                            <tr>
+                                                <td>
+                                                    <%#Eval("Type")%>
+                                                </td>
+                                                <td>
+                                                    <%#Eval("Quantity")%>
                                                 </td>
                                                 <td>
                                                     <%#Eval("Total")%>

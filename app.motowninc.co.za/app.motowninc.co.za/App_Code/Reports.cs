@@ -43,6 +43,13 @@ public class Reports
         sql.Append("DAY(Invoices.DateCreated) = DAY(@Date) ");
         sql.Append("GROUP BY PaymentType ORDER BY PaymentType;");
 
+        sql.Append("SELECT Type, SUM(Quantity) AS 'Quantity', SUM(Invoices.Total) AS 'Total' FROM Invoices ");
+        sql.Append("INNER JOIN InvoiceItems ON Invoices.InvoiceId = InvoiceItems.InvoiceId ");
+        sql.Append("WHERE YEAR(Invoices.DateCreated) = YEAR(@Date) AND ");
+        sql.Append("MONTH(Invoices.DateCreated) = MONTH(@Date) AND ");
+        sql.Append("DAY(Invoices.DateCreated) = DAY(@Date) ");
+        sql.Append("GROUP BY Type ORDER BY Type;");
+
         return new DatabaseTable().SQL(sql.ToString(),
           new List<MySqlParameter> {
                 new MySqlParameter() { MySqlDbType = MySqlDbType.Date, ParameterName = "@Date", Value = date},

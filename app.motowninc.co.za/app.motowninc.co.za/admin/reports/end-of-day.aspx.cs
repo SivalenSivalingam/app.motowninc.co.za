@@ -30,6 +30,9 @@ public partial class admin_reports_end_of_day : System.Web.UI.Page
 
         Report3.DataSource = dataSet.Tables[2];
         Report3.DataBind();
+
+        Report4.DataSource = dataSet.Tables[3];
+        Report4.DataBind();
     }
 
     private string GetDate(string date)
