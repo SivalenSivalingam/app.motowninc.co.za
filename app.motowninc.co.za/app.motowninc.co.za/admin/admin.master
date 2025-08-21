@@ -1,4 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="admin.master.cs" Inherits="admin_admin" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ACK" %>
 <!DOCTYPE html>
 <html>
@@ -39,8 +40,14 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/invoices/dashboard"><i class="bx bx-file"></i>&nbsp;Invoices</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/reports/dashboard"><i class="bx bx-chart"></i>&nbsp;Reports</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="reportsDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bx bx-chart"></i>&nbsp;Reports
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="reportsDropdown">
+                                <li><a class="dropdown-item" href="/admin/reports/end-of-day">End Of Day</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/employees/dashboard"><i class="bx bx-user"></i>&nbsp;Employees</a>
