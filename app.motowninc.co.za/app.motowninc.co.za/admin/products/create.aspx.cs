@@ -50,7 +50,7 @@ public partial class admin_products_create : Page
 
             if (result.Item1)
             {
-                Response.Redirect("/admin/products/edit?id=" + productId);
+                Response.Redirect("/admin/products/dashboard");
             }
             else
             {

@@ -58,7 +58,7 @@ public partial class admin_employees_create : Page
 
             if (result.Item1)
             {
-                Response.Redirect("/admin/employees/edit?id=" + employeeId);
+                Response.Redirect("/admin/employees/dashboard");
             }
             else
             {

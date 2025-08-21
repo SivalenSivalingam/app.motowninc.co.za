@@ -44,7 +44,7 @@ public partial class admin_customers_create : Page
 
             if (result.Item1)
             {
-                Response.Redirect("/admin/customers/edit?id=" + customerId);
+                Response.Redirect("/admin/customers/dashboard");
             }
             else
             {
