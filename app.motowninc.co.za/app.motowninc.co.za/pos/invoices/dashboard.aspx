@@ -34,7 +34,7 @@
                                         <ItemTemplate>
                                             <tr>
                                                 <td>
-                                                    <%#Eval("InvoiceId").ToString().Substring(0,8).ToUpper()%>
+                                                    <%#State(Eval("InvoiceId").ToString().Substring(0,8).ToUpper(),Eval("Cancelled").ToString(), Eval("ReturnedQuantity").ToString())%>
                                                 </td>
                                                 <td>
                                                     <%#Eval("FullName")%>

@@ -15,7 +15,7 @@ public partial class pos_invoices_dashboard : Page
 
     private void LoadDashboard()
     {
-        Invoices.DataSource = new DatabaseTable().Select("SELECT InvoiceId, FullName, ContactNumber, Total, DateCreated FROM Invoices ORDER BY DateCreated");
+        Invoices.DataSource = new DatabaseTable().Select("SELECT InvoiceId, Cancelled, ReturnedQuantity, FullName, ContactNumber, Total, DateCreated FROM Invoices ORDER BY DateCreated");
         Invoices.DataBind();
     }
 
@@ -25,5 +25,19 @@ public partial class pos_invoices_dashboard : Page
         {
             Response.Redirect("/pos/invoices/view?id=" + e.CommandArgument.ToString());
         }
+    }
+
+    public string State(string invoiceId, string cancelled, string returnedQuantity)
+    {
+        if (cancelled == "0" && returnedQuantity == "0")
+            return invoiceId;
+
+        if (cancelled == "1" && returnedQuantity == "0")
+            return invoiceId += "&nbsp;<span class='badge bg-danger'>C</span>";
+
+        if (cancelled == "1" && returnedQuantity == "1")
+            return invoiceId += "&nbsp;<span class='badge bg-warning'>C-RQ</span>";
+
+        return invoiceId;
     }
 }
