@@ -39,6 +39,7 @@
                                                         <th>Invoice</th>
                                                         <th>Customer</th>
                                                         <th>Contact Number</th>
+                                                        <th>Products</th>
                                                         <th>Total</th>
                                                         <th>Payment Type</th>
                                                         <th>Date Created</th>
@@ -59,6 +60,9 @@
                                                 </td>
                                                 <td>
                                                     <%#Eval("ContactNumber")%>
+                                                </td>
+                                                 <td>
+                                                    <%#GetInvoiceProducts(Eval("InvoiceId").ToString())%>
                                                 </td>
                                                 <td>
                                                     <%#Eval("Total")%>

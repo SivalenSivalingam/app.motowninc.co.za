@@ -31,6 +31,13 @@ public class Reports
         sql.Append("DAY(Invoices.DateCreated) = DAY(@Date) ");
         sql.Append("ORDER BY Invoices.DateCreated DESC;");
 
+        sql.Append("SELECT InvoiceItems.* FROM Invoices ");
+        sql.Append("INNER JOIN InvoiceItems ON Invoices.InvoiceId = InvoiceItems.InvoiceId ");
+        sql.Append("WHERE YEAR(Invoices.DateCreated) = YEAR(@Date) AND ");
+        sql.Append("MONTH(Invoices.DateCreated) = MONTH(@Date) AND ");
+        sql.Append("DAY(Invoices.DateCreated) = DAY(@Date) ");
+        sql.Append("ORDER BY Type, Name;");
+
         sql.Append("SELECT Employees.FullName AS 'Employee', SUM(Invoices.Total) AS 'Total' FROM Invoices INNER JOIN Employees ON Employees.EmployeeId = Invoices.EmployeeId ");
         sql.Append("WHERE YEAR(Invoices.DateCreated) = YEAR(@Date) AND ");
         sql.Append("MONTH(Invoices.DateCreated) = MONTH(@Date) AND ");

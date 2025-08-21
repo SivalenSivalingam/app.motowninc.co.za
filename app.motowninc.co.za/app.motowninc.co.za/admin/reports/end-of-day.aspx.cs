@@ -6,9 +6,12 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Globalization;
 using System.Data;
+using System.Text;
 
 public partial class admin_reports_end_of_day : System.Web.UI.Page
 {
+    DataTable InvoiceItems = new DataTable();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -22,18 +25,37 @@ public partial class admin_reports_end_of_day : System.Web.UI.Page
     {
         DataSet dataSet = new Reports().EndOfDay(DateTime.Parse(GetDate(Date.Text)));
 
+        InvoiceItems = dataSet.Tables[1];
+
         Report1.DataSource = dataSet.Tables[0];
         Report1.DataBind();
 
-        Report2.DataSource = dataSet.Tables[1];
+        Report2.DataSource = dataSet.Tables[2];
         Report2.DataBind();
 
-        Report3.DataSource = dataSet.Tables[2];
+        Report3.DataSource = dataSet.Tables[3];
         Report3.DataBind();
 
-        Report4.DataSource = dataSet.Tables[3];
+        Report4.DataSource = dataSet.Tables[4];
         Report4.DataBind();
     }
+
+    public string GetInvoiceProducts(string invoiceId)
+    {
+        StringBuilder html = new StringBuilder();
+
+        DataRow[] rows = InvoiceItems.Select("InvoiceId = '" + invoiceId + "'");
+
+        int count = 1;
+        foreach (DataRow row in rows)
+        {
+            html.Append(count + ". " + row["Name"].ToString() + " x " + row["Quantity"].ToString() + "<br/>");
+            count++;
+        }
+
+        return html.ToString();
+    }
+
 
     private string GetDate(string date)
     {
